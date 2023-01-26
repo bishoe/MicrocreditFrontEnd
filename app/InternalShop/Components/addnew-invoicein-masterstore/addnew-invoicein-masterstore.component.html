@@ -1,0 +1,223 @@
+ 
+<div class="container px-0">
+    <div class="row mt-4">
+      <div class="col-12 col-lg-12">
+         <!--  area Combobox  DrodDown Select  Date time -->
+        <div class="row" style="direction: rtl;" [formGroup]="AddnewInvoiceForm">
+          <div class="col-sm-4">
+            <label class="form-Lable"> الموردين *</label>
+            <select formControlName="DropdownSupliers" class="form-control" (click)="GetAllSupliers();   ">
+              <option [ngValue]="null" disabled>الموردين</option>
+              <option *ngFor="let _gETALLSupliers of _GETALLSupliers" [ngValue]="_gETALLSupliers.suppliersID">
+                {{_gETALLSupliers.suplierName}}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-Lable"> تاريخ الانتاج * <input matInput type="datetime-local" placeholder="start date" (change)="GETValueFromDateofregistration($any($event).target.value)">
+            </label>
+ </div>
+          <div class="col-sm-4">
+            <label class="form-Lable"> تاريخ الانتهاء * <input matInput type="datetime-local" placeholder="end date" (change)="GETValueFromGETValueFromExpireDate($any($event).target.value)">
+            </label>
+          </div>
+          <form class="example-form" style="direction:rtl">
+            <mat-form-field>
+              <label class="form-Lable">اسم المنتج:
+                <input type="text" placeholder="ادخل اسم المنتج" [formControl]="myControl" matInput
+                  [matAutocomplete]="auto">
+              </label>
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="GetProductIDFromSearchText">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (focusout)="GetProductIDandSetIDINTEXT();" (change)="FuncGETProducQt()">
+                  {{option.prodouctName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <!-- <label> {{GetProductQT}}كمية المنتج الحالى</label> -->
+          </form>
+
+
+           <!-- <div class="col-md-offset-2 ">
+            <button type="button" class="btn btn-primary" (click)="addNewItemButtonClick();CounterAddNewElementFunc()">
+              اضافة
+            </button>
+          </div> -->
+          <label style="color: black; font-size: medium; font-weight: bold;"
+          class="fa-solid fa-arrow-left ">
+          كمية المنتج = <i class="fas fa-arrow-from-bottom"></i>
+          <label [ngStyle]="{'color':'red'}">
+              {{GetProductQT}}
+          </label>
+      </label>
+
+           <div class="col-sm-2">
+       
+            <label class="form-Lable">مبلغ الخصم:
+              <input type="number" id="AMountDicount" formControlName="AMountDicount" placeholder="مبلغ الخصم"
+                class="form-controlOne">
+            </label>
+          </div>
+
+          <div class="col-sm-2">
+
+            <label class="form-Lable">الملاحظات:
+
+              <input type="text" id="Notes" formControlName="Notes" placeholder="الملاحظات" class="form-controlOne">
+            </label>
+
+          </div>
+
+          <div class="col-sm-2">
+
+            <label class="form-Lable"> الضريبه:
+              <input type="number" id="Tax" formControlName="Tax" placeholder="الضريبه" class="form-controlOne"></label>
+          </div>
+
+          <!-- /.col -->
+          <div class="col-sm-2">
+
+            <label class="form-Lable">الخصم:
+              <input type="number" id="Discount" formControlName="Discount" placeholder="الخصم" class="form-controlOne"
+                (focusout)="CalcDiscountAmountandTotalPrice();">
+            </label>
+          </div>
+          
+          <div class="col-sm-2">
+
+            <label class="form-Lable"> الاجمالى قبل الخصم:</label>
+            <input type="number" id="TotalBDiscount" formControlName="TotalBDiscount" placeholder="الاجمالى قبل الخصم"
+              class="form-controlOne" maxlength="7" pattern="/^-?\d+\.?\d*$/"
+              onKeyPress="if(this.value.length==7) return false;">
+            <!-- </div> -->
+          </div>
+          <div class="col-sm-2">
+            <label class="form-Lable">اجمالى السعر:<input type="number" id="TotalPrice" formControlName="TotalPrice"
+                class="form-controlOne" maxlength="7" pattern="/^-?\d+\.?\d*$/"
+                onKeyPress="if(this.value.length==7) return false; ">
+            </label>
+          </div>
+          <div class=" css-table-row">
+
+            <button type="button" class="btn btn-primary"
+                (click)="addNewItemFormGroup();CounterAddNewElementFunc()">اضافة </button>
+             <button type="button" class="btn btn-warning" (click)="CalcTotalAmountBeforepurchases();">
+              الانتهاء من اضافة الاصناف (1) 
+            </button>     
+           <a (click)="AddnewInvoice();"
+            class="btn btn-success btn-bold px-4 float-left mt-3 mt-lg-0">حفظ(2)</a>
+
+            <!-- <a (click)="AddnewInvoice();" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">(2)حفظ الفاتوره</a> -->
+        </div>   
+
+          <div class="table table-bordered">
+            <!-- <div class="row"> -->
+              <div class="css-table-row">
+              <div class="">
+                  #
+                </div>
+                <div class=" ">
+                  اذن الاستلام
+                </div>
+                <div class=" ">
+                  سعر الشراء
+                </div>
+                <div class=" ">
+                  سعر البيع
+                </div>
+                <div class=" ">
+                  حجم المنتج
+                </div>
+                <div class=" ">
+                  كمية المنتج
+                </div>
+               
+                <div class=" ">
+                  اجمالى الصف
+                </div>
+                <div class=" " hidden>
+                  ProdouctsID </div>
+                <div class=" " hidden>
+                  TextNameCurrentQT
+                 </div>
+
+              </div>
+              <div class="row" formArrayName="invoice" *ngFor="let _invoice of $any(AddnewInvoiceForm.get('invoice')).controls;  
+      index as i " [attr.data-index]="i">
+
+                           <button type="button" class="btn btn-danger " title="Delete"
+                    (click)="removeSkillButtonClick(i)"> {{i}}  حذف صنف </button>
+
+      
+      <input type="number" id="{{'TextNameOunterItem'+i}}" formControlName="TextNameOunterItem"
+                    [value]="i-1" placeholder="number" class="form-controlOne">     
+              
+
+                 <div data-title="#" [formGroupName]="i" hidden>
+                  <input type="number" id="{{'TextNameProdouctsID'+i}}" formControlName="TextNameProdouctsID"
+                    placeholder="number" class="form-controlTwo">
+                </div>
+
+                <div data-title="#" [formGroupName]="i" class="form-controlinsaleandwarehouse">
+                   <input type="number" id="{{'TextNameReceivingpermissionId'+i}}"
+                    formControlName="TextNameReceivingpermissionId" [value]="i" placeholder="number"
+                    class="">
+                </div>
+
+                <div data-title="#" [formGroupName]="i"class="form-controlinsaleandwarehouse" >
+
+                    <input type="number" id="{{'TextNamePurchasingPrice'+i}}" formControlName="TextNamePurchasingPrice"
+                    placeholder="number" class="" maxlength="7" pattern="/^-?\d+\.?\d*$/"
+                    onKeyPress="if(this.value.length==7) return false;">
+                </div>
+
+                <div data-title="#" [formGroupName]="i" class="form-controlinsaleandwarehouse">
+
+                    <input type="number" id="{{'TextNameSellingPrice'+i}}" formControlName="TextNameSellingPrice"
+                    placeholder="number" class="" maxlength="7" pattern="/^-?\d+\.?\d*$/"
+                    onKeyPress="if(this.value.length==7) return false;">
+               </div>
+               <div data-title="#" [formGroupName]="i" class="form-controlinsaleandwarehouse">
+
+                  <input type="number" id="{{'TextNameSizeProducts'+i}}" formControlName="TextNameSizeProducts"
+                    placeholder="number" class="">
+               </div>
+                    <div data-title="#" [formGroupName]="i" class="form-controlinsaleandwarehouse">
+
+                  <input type="number" id="{{'TextNameQuntityProduct'+i}}" formControlName="TextNameQuntityProduct"
+                    placeholder="number" class="" (focusout)="CalcTotalAmountRow();"  maxlength="7"
+                    pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+             </div>
+             <div data-title="#" [formGroupName]="i" class="form-controlinsaleandwarehouse">
+
+                   <input type="number" id="{{'TextNameTotalAmountRow'+ i}}" formControlName="TextNameTotalAmountRow"
+                    placeholder="number" class=" " maxlength="7" pattern="/^-?\d+\.?\d*$/"
+                    onKeyPress="if(this.value.length==7) return false;">
+</div>
+
+                 <div class=" " [formGroupName]="i" hidden >
+                  <input type="number" id="{{'TextNameCurrentQT'+i}}" formControlName="TextNameCurrentQT"
+                    placeholder="number" class="form-controlTwo">
+                </div>
+         </div>
+            <!--      </div> -->
+          </div>
+    
+        </div>
+      </div>
+      <div class="row border-b-2 brc-default-l2"></div>
+      <hr />
+      <div>
+      <!-- <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn btn-primary" (click)="CalcTotalAmountBeforepurchases()">
+          الانتهاء من اضافة الاصناف (1) 
+        </button>
+        <a (click)="AddnewInvoice();" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">(2)حفظ الفاتوره</a>
+      </div> -->
+      <!-- <div hidden>
+        <a (click)="UpdateQtProductafterPurchases();"
+          class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">UpdateQtProductafterPurchases</a>
+      </div> -->
+    </div>
+  </div>
+
+ 

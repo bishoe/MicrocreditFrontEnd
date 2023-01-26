@@ -1,0 +1,199 @@
+ 
+
+    <div class=" ">
+
+        
+        <div class="container px-0">
+            <div class="row mt-4">
+                <div class="col-12 col-lg-12">
+                    <div class="row">
+                    </div>
+                    <!-- .row -->
+                    <hr class="row brc-default-l1 mx-n1 mb-4" />
+                    <!--  area Combobox  DrodDown Select  Date time -->
+                    <div class="row" style="direction: rtl;" [formGroup]="SalesInvoiceForm">
+                        <form class="example-form" style="direction:rtl">
+                            <mat-form-field>
+                                <label class="form-Lable">اسم المنتج:
+                                <input type="text" placeholder="ادخل اسم المنتج" [formControl]="myControl" matInput
+                                   [matAutocomplete]="auto" (change)="FuncGETProducQt()">
+                                </label>
+                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="GetProductIDFromSearchText">
+                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
+                                        (focusout)="GetProductIDandSetIDINTEXT(); ">
+                                        {{option.prodouctName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </form>
+                        <div class="col-sm-2">
+                            <label class="form-Lable"> الباركود:</label>
+
+                            <input type="number" id="TextSearchBarcode" formControlName="TextSearchBarcode"
+                                placeholder="SearchBarcode" class="form-controlOne" style="width:190px; "
+                                (keydown.enter)="GetProductbyBarcode();GetProductIDandSetIDINTEXT();">
+                        </div>
+
+                        <label style="color: black; font-size: medium; font-weight: bold;"
+                            class="fa-solid fa-arrow-left ">
+                            كمية المنتج = <i class="fas fa-arrow-from-bottom"></i>
+                            <label [ngStyle]="{'color':'red'}">
+                                {{GetProductQT}}
+                            </label>
+                        </label>
+                        <div class="col-sm-2">
+                            <label class="form-Lable">مبلغ الخصم:
+                                <input type="number" id="AMountDicount" formControlName="AMountDicount"
+                                    placeholder="مبلغ الخصم" class="form-controlOne"maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                            </label>
+                        </div>
+                        <div class="col-sm-2" >
+
+                            <label class="form-Lable"> الضريبه:
+                                <input type="number" id="Tax" formControlName="Tax" placeholder="الضريبه"
+                                    class="form-controlOne"></label>
+                        </div>
+
+                        <!-- /.col -->
+                        <div class="col-sm-2">
+                            <label class="form-Lable">الخصم:
+                                <input type="number" id="Discount" formControlName="Discount" placeholder="الخصم"
+                                    class="form-controlOne"  (focusout)="CalcDiscountandTotalPrice();">
+                            </label>
+                        </div>
+
+                        <div class="col-sm-2">
+
+                            <label class="form-Lable"> الاجمالى قبل الخصم:</label>
+                            <input type="number" id="TotalBDiscount" formControlName="TotalBDiscount"
+                                placeholder="الاجمالى قبل الخصم" class="form-controlOne" value=0 maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                            <!-- </div> -->
+                        </div>
+                        <div class="col-sm-2">
+
+                            <label class="form-Lable">المدفوع:<input type="number" id="AmountPaid"
+                                    formControlName="AmountPaid" placeholder="المدفوع" class="form-controlOne"
+                                    (focusout)="  GetRemainingAmount()"maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                            </label>
+                        </div>
+
+
+
+                        <div class="col-sm-2">
+
+                            <label class="form-Lable">المتبقى:<input type="number" id="RemainingAmount"
+                                    formControlName="RemainingAmount" placeholder="المتبقى" class="form-controlOne"maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                            </label>
+                        </div>
+
+                        <div class="col-sm-2">
+
+                            <label class="form-Lable">اجمالى السعر:<input type="number" id="TotalPrice"
+                                    formControlName="TotalPrice" placeholder="اجمالى السعر" class="form-controlOne"maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                            </label>
+                        </div>
+
+                        <br /> <br /> <br />
+                
+                        <div class=" css-table-row">
+
+                            <button type="button" class="btn btn-primary"
+                                (click)="ButtonaddNewItem();CounterAddNewElementFunc()">اضافة </button>
+                             <button type="button" class="btn btn-warning" (click)="GetTotalAmountBeforeDiscount();">
+                              الانتهاء من اضافة الاصناف (1) 
+                            </button>     
+                                                   <a (click)="AddNewInvoiceSales();"
+                            class="btn btn-success btn-bold px-4 float-left mt-3 mt-lg-0">حفظ(2)</a>
+
+                            <!-- <a (click)="AddnewInvoice();" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">(2)حفظ الفاتوره</a> -->
+                        </div>   
+                      
+                        
+                        <!-- /.col -->
+                        <br /> <br /> <br /> <br /> <br />
+                        <div>
+                            <div class="table table-bordered">
+                                <div class="css-table-row">
+                                    <div class=" ">
+                                        #
+                                    </div>
+                                    <div class=" " hidden>
+                                        ProdouctsID </div>
+                                    <div class=" ">
+                                        كمية المنتج
+                                    </div>
+                                    <div class=" ">
+                                        سعر البيع
+                                    </div>
+                                    <div class=" ">
+                                        اجمالى الصنف
+                                    </div>
+                                    <div class=" " hidden>
+                                        TextNameCurrentQT </div>
+                                </div>
+      
+                                <div class="row" tbody formArrayName="iSalesInvoice" *ngFor="let _iSalesInvoice of $any(SalesInvoiceForm.get('iSalesInvoice')).controls;  
+      index as i " [attr.data-index]="i">
+
+      <button type="button" class="btn btn-danger " title="Delete"
+      (click)="removeitem(i)"> {{i}}  حذف صنف </button>
+
+ 
+  <input type="number" id="{{'TextNameCounter'+i}}"
+  formControlName="TextNameCounter" [value]="CounterAddNewElement-1"
+  placeholder="number" class="form-controlinsaleandwarehouse">
+ 
+ <div data-title="#" [formGroupName]="i" class="form-controlinsaleandwarehouse">
+ <input type="number" id="{{'TextNameProdouctsID'+i}}"
+ formControlName="TextNameProdouctsID" placeholder="number"
+ hidden> 
+
+ </div>
+                                    <div   data-title="#" [formGroupName]="i"class="form-controlinsaleandwarehouse">
+
+                                        <input type="number" id="{{'TextNameQuntity_Product'+i}}"
+
+                                            formControlName="TextNameQuntity_Product" [value]="i" 
+                                            
+                                            placeholder="number"maxlength="7"pattern="/^-?\d+\.?\d*$/" 
+                                            
+                                            onKeyPress="if(this.value.length==7) return false;"
+                                            
+                                            class=" " (focusout)="CheckProductQTBeforeSelling();">
+                                    </div>
+                                    <div   data-title="#" [formGroupName]="i"class="form-controlinsaleandwarehouse">                                        <input type="number" id="{{'TextNameSellingPrice'+i}}"
+                                            formControlName="TextNameSellingPrice" placeholder="number"
+                                            class=" " (focusout)="CalcTotalAmountRow();"maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                                    </div>
+                                    <div   data-title="#" [formGroupName]="i"class="form-controlinsaleandwarehouse">                                        <input type="number" id="{{'TextNameTotalAmountRow'+i}}"
+                                            formControlName="TextNameTotalAmountRow" placeholder="number"
+                                            class=" "maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                                    </div>
+                                    <div   data-title="#" [formGroupName]="i"class="form-controlinsaleandwarehouse" hidden>                                        <input type="number" id="{{'TextNameCurrentQT'+i}}"
+                                            formControlName="TextNameCurrentQT" placeholder="number"
+                                            class="form-controlTwo"maxlength="7"pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row border-b-2 brc-default-l2"></div>
+                <hr />
+               
+                <div>
+                    <a (click)="UpdateQtProductafterselling()"
+                        class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0"> TESSSTY
+                    </a>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+<!-- </body>
+
+</html> -->
