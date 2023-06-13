@@ -1,0 +1,39 @@
+<div class="container">
+
+<div style="direction: rtl; text-align: center; font-size: larger;"  [formGroup]="ReportFormGroup">
+    <label class="label" style="direction: rtl; text-align: center; font-size: larger; color: brown;">طلب تقرير بالاقساط المستحقه</label>
+  <div class="row">
+  
+ 
+    <div class="form-group">
+      <label class="form-Lable">من *</label>
+
+      <input matInput type="datetime-local"   formControlName="DateFrom" placeholder="start date" (change)="_GETValueDateFrom($any($event).target.value) "  class="">
+    </div>
+ 
+
+    <div class="form-group">
+      <label class="form-Lable">الى *</label>
+
+      <input matInput type="datetime-local"   formControlName="DateTo" placeholder="start date" (change)="_GETValueDateTo($any($event).target.value) "  class="">
+    </div>
+ 
+
+
+    <button  class="btn btn-info" (click)="GETDataSYNC()">طلب التقرير</button>
+    </div>
+          https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf
+          <ngx-extended-pdf-viewer
+ [src]="'http://localhost:81/assets/IssuanceLoansbetweenDate.pdf'"
+	[useBrowserLocale]="true"
+	[textLayer]="true"
+	[showHandToolButton]="true"
+	[showPresentationModeButton]="true"
+	[showDownloadButton]="false"
+></ngx-extended-pdf-viewer>
+
+
+</div>
+
+         </div>
+      

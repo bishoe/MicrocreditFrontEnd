@@ -1,0 +1,27 @@
+<script src="https://codepen.io/shshaw/pen/QmZYMG.js"></script>
+<div class="row" style="direction: rtl;" [formGroup]="_AddNewLonaForm">
+
+                <label class="search">
+
+                  <div class="one">
+                    <div class="two">
+                      <div class="three">
+<input type="search" 
+class="four"
+ placeholder="ادخل كود العميل" formControlName="TextSearchCustomercode"
+(keydown.enter)="SearchCustomerBycode();"/>
+                      </div>
+                      <div class="stick"></div>
+                    </div>
+                  </div>
+                
+                </label>
+                <script>
+                    
+                document.querySelector('.stick').addEventListener('click',()=>{
+                  document.querySelector('.four').value = '';
+                  });
+                </script>
+                </div>
+
+     

@@ -1,0 +1,42 @@
+<nav class="navbar" style="direction: rtl;">
+  
+  
+    <input class="form-control" type="text" name="customerName" [(ngModel)]="customerName" (ngModelChange)="Search()"
+  placeholder="اسم العميل">
+  
+   </nav> 
+  <table class="table table-bordered" style="direction: rtl; text-align: center;">
+    <thead>
+            <tr>
+              <th>كود  العميل</th>
+              <th>كود  القرض</th>
+
+         <th (click)="sort('customerName')">اسم العميل&nbsp;<i class="fa fa-sort"></i></th>
+         <th>الرقم القومى</th>
+         <th>المنتج</th>
+
+        <th>تاريخ الانشاء</th>
+          <th>حالة القرض</th>
+
+            </tr>
+        </thead>
+        <tbody style="font-size: large;">
+            <tr *ngFor="let _TracklonaPagging of TracklonaPagging | orderBy: key: reverse | paginate :{itemsPerPage:50,currentPage:p};">
+  
+               
+                 <td>{{_TracklonaPagging.customerId}}</td>       
+                            <td>{{_TracklonaPagging.lonaId}}</td>
+     
+                <td>{{_TracklonaPagging.customerName}}</td>  
+                <td>{{_TracklonaPagging.customerNationalid}}</td>
+                <td>{{_TracklonaPagging.prodouctName}}</td>     
+                <td>{{_TracklonaPagging.dateAdd}}</td>     
+                <td><button class="btn btn-primary" *ngIf="_TracklonaPagging.statusLona==0" [routerLink]="['/pages/UpdateLona/', _TracklonaPagging.lonaId]">تحت التحرير</button></td>     
+
+   
+             </tr>
+        </tbody>
+        
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+        </table>

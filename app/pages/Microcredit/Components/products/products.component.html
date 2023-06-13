@@ -1,0 +1,44 @@
+ 
+<form [formGroup]="ProductsForm">
+  <div class="container " dir="rtl" >
+    <div class="row ">
+        <div class="col-md-3 register-left">
+             <p class="register-heading">شاشة اضافة منتج جديد </p>
+           <!-- <input type="submit" name="" value="Login"/><br/>  -->
+        </div>
+        <div class="col-md-9 register-right" dir="rtl">
+        
+ <div class="tab-content" id="myTabContent" >
+ى                              <h3 class="register-heading" >اضافة   منتج </h3>
+                  <div class="row register-form">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-Lable">اسم المنتج *</label>
+
+<input type="text" class="form-control" placeholder="ادخل اسم المنتج  " formControlName="prodouctName" />              
+                          </div>
+            <div class="form-group">
+              <label class="form-Lable" >ملاحظات *</label>
+          
+<input  type="text" class="form-control" placeholder=" ملاحظات*" formControlName="notes" />
+</div>
+
+
+
+                    </div> 
+<div class="col-md-6">
+<input type="submit" class="btnRegister"    value="اضافة" (click)="ADDProducts()"/>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+  </div>
+
+
+ </form>
+
+ 

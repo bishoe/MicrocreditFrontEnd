@@ -1,0 +1,37 @@
+<form [formGroup]="UpdateProductForm">
+    <div class=" " dir="rtl">
+      <div class="row ">
+        <div class="col-md-3 register-left">
+          <!-- <img src="../../../../assets/img/Branches.png" alt=""/> -->
+        </div>
+        <div class="col-md-9 register-right" dir="rtl">
+  
+          <div class="tab-content" id="myTabContent">
+            <!-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">       -->
+            <h3 class="register-heading">تعديل بيانات المنتج </h3>
+            <div class="row register-form">
+              <div class="col-md-6">
+                <div class="form-group">
+  
+                  <label class="form-Lable">اسم المنتج *</label>
+   
+                    <input type="text" class="form-control" placeholder="ادخل اسم المنتج  " formControlName="prodouctName"
+                  />
+   
+                </div>
+        
+ 
+              </div>
+             
+                <input type="submit" class="btnRegister" value="تحديث" 
+                  (click)=" UpdateProducts()" />
+  
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+  
+  </form>

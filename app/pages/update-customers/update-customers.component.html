@@ -1,0 +1,151 @@
+<form [formGroup]="UpdatecustomerForm">
+  <div class=" " dir="rtl">
+    <div class="row ">
+      <div class="col-md-3 register-left">
+        <!-- <img src="../../../../assets/img/Branches.png" alt=""/> -->
+      </div>
+      <div class="col-md-9 register-right" dir="rtl">
+
+        <div class="tab-content" id="myTabContent">
+          <!-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">       -->
+          <h3 class="register-heading">تعديل بيانات عميل </h3>
+          <div class="row register-form">
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <label class="form-Lable">اسم العميل *</label>
+ 
+                  <input type="text" class="form-control" placeholder="ادخل اسم العميل  " formControlName="customerName"
+                    (blur)="logValidationErrors()" />
+ 
+              </div>
+              <div class="form-group">
+                <label class="form-Lable">تاريخ الاصدار *</label>
+
+ 
+                <input matInput type="datetime-local" class="form-control" placeholder=" تاريخ الاصدار*"
+                formControlName="dateissuancenationalID"(blur)="logValidationErrors()"   (change)="GETValueFromdateissuancenationalID($any($event).target.value)"/>
+
+  
+
+              </div>
+              <div class="form-group">
+                <label class="form-Lable">الهاتف *</label>
+
+                  <input type="number" class="form-control" placeholder=" الهاتف*"
+ formControlName="firstPhone" (blur)="logValidationErrors()"   />
+ </div>
+ <div class="form-group">
+ <label class="form-Lable">اسم العمل *</label>
+ 
+ <input type="text" class="form-control" placeholder=" اسم العمل*"
+ formControlName="businessName" (blur)="logValidationErrors()" />
+               </div>
+              <div class="form-group">
+                <label class="form-Lable">عنوان المنزل *</label>
+                  <input type="text" class="form-control" placeholder=" عنوان المنزل*"
+                                   formControlName="customerAddress" (blur)="logValidationErrors()"  
+                 />
+                </div>
+              <div class="form-group">
+                <label class="form-Lable">ملاحظات *</label>
+              
+                <textarea formControlName="notes" class="form-control" placeholder="ملاحظات *"></textarea>
+              </div>
+
+            </div>
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="form-group">
+                  <label class="form-Lable">الرقم القومى *</label>
+                             <input type="number" class="form-control" placeholder=" الرقم القومى*"
+ formControlName="customerNationalid" (blur)="logValidationErrors()"  />                          
+                 </div>
+                <div class="form-group">
+                  <label class="form-Lable">تاريخ الانتهاء *</label>
+
+                  <input matInput type="datetime-local" class="form-control" placeholder=" تاريخ الانتهاء*"
+                  formControlName="expirationdatenationalID"(blur)="logValidationErrors()" 
+                  (change)="GETValueFromGETValueFromexpirationdatenationalID($any($event).target.value)" />   
+  
+                 </div>
+
+                <div class="form-group">
+                  <label class="form-Lable">هاتف المنزل *</label>
+
+
+ 
+ <input type="number" class="form-control" placeholder=" هاتف المنزل*" formControlName="secondPhone" (blur)="logValidationErrors()"  />
+ </div>
+                <div class="form-group">
+                  <label class="form-Lable">عنوان العمل *</label>
+ <input type="text" class="form-control" placeholder=" عنوان العمل*"
+ formControlName="workAddress" (blur)="logValidationErrors()"  />
+                  </div>
+                <div class="form-group">
+                  <label class="form-Lable">تاريخ الاضافة *</label>
+                    <input matInput type="datetime-local" class="form-control" placeholder=" تاريخ الاضافة*"
+                  formControlName="dateAdd" (blur)="logValidationErrors()" (change)="GETValueFromdateAdd($any($event).target.value)"
+                />
+                 
+                <div class="form-group"  >
+                  <label class="form-Lable">اقصى عدد قروض مسموح *</label>
+                  <div class="col-sm-8">
+                    
+            <input  id="maxLonaForCustomer" formControlName="maxLonaForCustomer" type="text" class="form-control" (blur)="logValidationErrors()">
+            
+            
+            
+                    <!-- <span class="help-block" *ngIf="formErrors.maxLonaForCustomer">
+                      {{formErrors.maxLonaForCustomer}}
+                      </span> -->
+                  </div>
+                </div>
+                <!-- <div class="form-group" [ngClass]="{'has-error' :  formErrors.maxNumberGuarantorLona }"> -->
+                  <label class="form-Lable">اقصى حد مسموح للضمان *</label>
+                  <div class="col-sm-8">
+                    
+            <input  id="maxNumberGuarantorLona" formControlName="maxNumberGuarantorLona" type="text" class="form-control" (blur)="logValidationErrors()">
+                    <!-- <span class="help-block" *ngIf="formErrors.maxNumberGuarantorLona"> -->
+                      <!-- {{formErrors.maxNumberGuarantorLona}}
+                      </span> -->
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="form-Lable">العميل يمكن ان يكون ضامن *</label>
+ 
+     <input
+              type="radio"id="true" name="sample" value="1" (change)="onChange($event)" /> 
+              <label for="a">نعم</label> 
+              
+              <input   type="radio"  id="false"  name="sample"  value="0"   (change)="onChange($event)" />
+              <label for="b">لا</label>
+                  </div>
+                <!-- </div> -->
+
+              
+
+                </div>
+
+              </div>
+     
+              
+              
+              <!-- <div class="form-group"> -->
+              <!-- <input type="text" class="form-control" placeholder="`Answer *" value="" /> -->
+              <!-- </div> -->
+              <input type="submit" class="btnRegister" value="تحديث" 
+                (click)=" UpdateCustomers()" />
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</form>

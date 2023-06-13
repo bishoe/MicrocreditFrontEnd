@@ -1,0 +1,23 @@
+
+<div class="container">
+    <div style="direction: rtl; text-align: center; font-size: larger;"  [formGroup]="ReportFormGroup">
+ <label class="label" style="direction: rtl; text-align: center; font-size: larger; color: brown;">طلب تقرير بالعملاء المكودين بالنظام</label>
+      <div class="row">
+ 
+       
+        <button  class="btn btn-success" (click)="GETCountCustomers()">طلب التقرير</button>
+        </div>
+        <ngx-extended-pdf-viewer
+     [src]="'http://localhost:81/assets/ReportGetCountCustomers.pdf'"
+        [useBrowserLocale]="true"
+        [textLayer]="true"
+        [showHandToolButton]="true"
+        [showPresentationModeButton]="true"
+        [showDownloadButton]="false"
+    ></ngx-extended-pdf-viewer>
+    
+    
+    </div>
+    
+             </div>
+          

@@ -1,0 +1,29 @@
+
+
+
+<div class="container">
+    <div style="direction: rtl; text-align: center; font-size: larger;"  [formGroup]="ReportFormGroup">
+ <label class="label" style="direction: rtl; text-align: center; font-size: larger; color: brown;">طلب تقرير بحالة العميل التفصيليه</label>
+      <div class="row">
+        <div class="form-group">
+          <label class="form-Lable">كود العميل *</label>
+          <input type="text" formControlName="CustomerID" placeholder="ادخل كود العميل بالارقام" />
+
+        </div>
+       
+        <button  class="btn btn-success" (click)="GETDataSYNC()">طلب التقرير</button>
+        </div>
+        <ngx-extended-pdf-viewer
+     [src]="'http://localhost:81/assets/ReportAllinfoAboutcustomerReportAllinfoAboutcustomer.pdf'"
+        [useBrowserLocale]="true"
+        [textLayer]="true"
+        [showHandToolButton]="true"
+        [showPresentationModeButton]="true"
+        [showDownloadButton]="false"
+    ></ngx-extended-pdf-viewer>
+    
+    
+    </div>
+    
+             </div>
+          

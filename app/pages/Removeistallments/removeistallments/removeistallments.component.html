@@ -1,0 +1,100 @@
+<div class="row" style="direction: rtl;" [formGroup]="_DetailsLona">
+<h5 style="text-align: center; direction: rtl; font-size: 24px; color: cornflowerblue; font-family: sans-serif;"  >الغاء الاقساط</h5>
+    <table class="table table-bordered" style="direction: rtl;">
+      <thead>
+        <tr>
+          <th>
+            <label class="form-Lable">اسم العميل :</label>
+          </th>
+          <th><label class="form-Lable">كود العميل :</label>
+          </th>
+          <th>
+            <label class="form-Lable">الرقم القومى :</label>
+          </th>
+          <th><label class="form-Lable">الفائده الحاليه :</label>
+          </th>
+          <th><label class="form-Lable">المنتج :</label>
+          </th>
+          <th>
+            <label class="form-Lable">تاريخ بداية القرض</label>
+          </th>
+  
+        </tr>
+  
+      </thead>
+      <tbody>
+        <tr>
+          <td><label class="form-Lable" style="color: red;">{{customerName}}</label>
+            <label class="form-Lable">مبلغ القرض :</label>
+            <label class="form-Lable" style="color: green; font-size: medium; font-weight: bold;">{{lonaAmount}}</label>
+  
+          </td>
+          <td>
+            <label class="form-Lable" style="color: black; font-size: medium;">{{customerId}}</label>
+            <label class="form-Lable">عدد الاقساط :</label>
+            <label class="form-Lable" style="color: green; font-size: medium; font-weight: bold;">{{monthNumber}}</label>
+          </td>
+          <td>
+            <label class="form-Lable" style="color: black; font-size: medium;">{{customerNationalid}}</label>
+  
+  
+          </td>
+  
+          <td><label class="form-Lable" style="color: black; font-size: medium;">{{GetInterestRateName}}</label>
+          </td>
+  
+          <td><label class="form-Lable" style="color: black; font-size: medium;"> {{prodouctName}}</label></td>
+  
+          <td>
+            {{GetstartDateLona}}
+  
+          </td>
+  
+        </tr>
+      </tbody>
+    </table>
+  
+  
+  
+    <table class="table table-bordered" style="direction: rtl;">
+      <thead>
+        <tr>
+          <th (click)="sort('noIstalments')">رقم القسط<i class="fa fa-sort"></i></th>
+          <th>اسم العميل</th>
+          <!-- <th>المبلغ المستحق</th> -->
+          <th>المبلغ المدفوع</th>
+          <!-- <th>المبلغ المتبقى</th> -->
+          <!-- <th>المبلغ المراد دفعه</th> -->
+          <th>رقم#</th>
+          <th>تاريخ السداد</th>
+  
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let _PaymentOfistallmentsPagging of PaymentOfistallmentsPagging | orderBy: key: reverse | paginate :{itemsPerPage:24,currentPage:p};  index as i "
+          [attr.data-index]="i">
+  
+  
+          <td>{{_PaymentOfistallmentsPagging.noIstalments}}</td>
+          <td>{{customerName}}</td>
+          <!-- <td>{{_PaymentOfistallmentsPagging.istalmentsAmount}}</td> -->
+          <td>{{_PaymentOfistallmentsPagging.amountPaid}}</td>
+          <!-- <td>{{_PaymentOfistallmentsPagging.amountRemaining}}</td> -->
+          <!-- <td><input type="number" formControlName="amountPaidcontrol" placeholder="المبلغ المراد دفعه"
+              class="form-controlheaderinput" disabled hidden></td> -->
+  
+          <td>{{_PaymentOfistallmentsPagging.paymentIdDetails}}</td>
+          <!-- <td><input type="text" formControlName="inputpaymentIdDetails" [Value]="_PaymentOfistallmentsPagging.paymentIdDetails" /></td> -->
+          <td>{{_PaymentOfistallmentsPagging.dateAddDetails}}</td>
+          <td>
+            <button class="btn btn-block btn-warning" (click)="UpdateLona()">Edit</button>
+            <!-- <button class="btn btn-primary"  [routerLink]="['/pages/AddNewPayment/', _PaymentOfcPagging.paymentIdDetails]">قرض مفتوح</button> -->
+                  </td>
+  
+        </tr>
+      </tbody>
+  
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+    </table>

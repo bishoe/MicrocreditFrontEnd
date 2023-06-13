@@ -1,0 +1,81 @@
+<form [formGroup]="UpdateInterestRateForm">
+    <div class=" " dir="rtl">
+      <div class="row ">
+        <div class="col-md-3 register-left">
+          <!-- <img src="../../../../assets/img/Branches.png" alt=""/> -->
+        </div>
+        <div class="col-md-9 register-right" dir="rtl">
+  
+          <div class="tab-content" id="myTabContent">
+            <!-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">       -->
+            <h3 class="register-heading">تعديل الفائده </h3>
+            <div class="row register-form">
+              <div class="col-md-6">
+                <div class="form-group">
+  
+                  <label class="form-Lable">اسم الفائده *</label>
+                  <div class="form-group" [ngClass]="{'has-error' :  formErrors.interestRateName }">
+  
+                    <input type="text" class="form-control" placeholder="ادخل اسم الفائده  " formControlName="interestRateName"
+                      (blur)="logValidationErrors()" />
+                    <span class="help-block" *ngIf="formErrors.interestRateName">
+                      {{formErrors.interestRateName}}
+                    </span>
+                    <label class="form-Lable">النسبه *</label>
+                    <div class="form-group" [ngClass]="{'has-error' :  formErrors.interestRateValue }">
+    
+                      <input type="number" class="form-control" placeholder="النسبه  " formControlName="interestRateValue"
+                        (blur)="logValidationErrors()" />
+                      <span class="help-block" *ngIf="formErrors.interestRateValue">
+                        {{formErrors.interestRateValue}}
+                      </span>
+                  </div>
+  
+                </div>
+              
+  
+              </div>
+              <div class="col-md-6">
+  
+                <div class="form-group">
+    
+  
+               
+            
+                  <!-- <div class="form-group">
+                    <label class="form-Lable">تاريخ الاضافة *</label>
+   
+   <div class="form-group" [ngClass]="{'has-error' :  formErrors.DateAdd }">
+  
+    <input type="date" class="form-control" placeholder=" تاريخ الاضافة*"
+    formControlName="DateAdd"           (blur)="logValidationErrors()"                   (change)="GETValueFromdateAdd($any($event).target.value)"
+     
+  />
+    <span class="help-block" *ngIf="formErrors.DateAdd">
+      {{formErrors.DateAdd}}
+    </span>
+  
+  </div>
+
+                  </div> -->
+  
+                </div>
+  
+                <!-- <div class="form-group"> -->
+                <!-- <input type="text" class="form-control" placeholder="`Answer *" value="" /> -->
+                <!-- </div> -->
+                <input type="submit" class="btnRegister" value="اضافة"  [disabled]="!UpdateInterestRateForm.valid"
+                  (click)="logValidationErrors(InterestRateForm); UpdateInterestRate();" />
+  
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  </form>   
+  
+   

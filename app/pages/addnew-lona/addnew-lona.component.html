@@ -1,0 +1,227 @@
+ 
+
+    <div class=" ">
+
+        
+      <div class="container px-0">
+          <div class="row mt-4">
+              <div class="col-12 col-lg-12">
+                  <div class="row">
+                  </div>
+                  <!-- .row -->
+                  <hr class="row brc-default-l1 mx-n1 mb-4" />
+                   <script src="https://codepen.io/shshaw/pen/QmZYMG.js"></script>
+  <div class="row" style="direction: rtl;" [formGroup]="_AddNewLonaForm">
+
+                  <!-- <label class="search">
+
+                    <div class="one">
+                      <div class="two">
+                        <div class="three">
+ <input type="search" class="four" placeholder="ادخل كود العميل" formControlName="TextSearchCustomercode"  (keydown.enter)="SearchCustomerBycode();"/>
+                        </div>
+                        <div class="stick"></div>
+                      </div>
+                    </div>
+                  
+                  </label>
+                  <script>               
+
+                      
+                  document.querySelector('.stick').addEventListener('click',()=>{
+                    document.querySelector('.four').value = '';
+                    });
+                  </script> -->
+                  <!--  area Combobox  DrodDown Select  Date time -->
+                   
+                    <!-- <div class="col-sm-2">
+                      <label class="form-Lable"> البحث:</label>
+                      <input type="number"  formControlName="TextSearchCustomercode"
+                          placeholder="ادخل كود العميل" class="form-controlOne" style="width:184px; padding: 7px 27px 14px; margin-right: -10px;"
+                          (keydown.enter)="SearchCustomerBycode();">
+                          <button (click)="SearchCustomerBycode()">SearchCustomerBycode()</button>
+                  </div> -->
+                    
+                   <div class="col-sm-2" style="direction: rtl;">
+                    <label class="form-Lable"> البيانات الاساسيه:</label>
+                    <table class="table table-bordered ">
+                      <thead style="background-color: rgb(248, 248, 195);">
+                        <tr> 
+              <th> <label class="form-Lable">اسم العميل :</label> </th>
+               <th> <label class="form-Lable">كود العميل :</label></th>
+                          <th><label class="form-Lable">الرقم القومى :</label> </th>
+                        </tr>
+
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><label  class="form-Lable" style="color: red;">{{GetcustomerNamefromurl}}</label></td>
+
+                          <td><label  class="form-Lable" style="color: green; font-size:large; width: 100px; text-align: center;">   {{_customerIdfromurl}}</label></td>
+                          <td><label  class="form-Lable" style="color: black; font-size: medium;">{{GetGetcustomerNationalidfromurl}}</label></td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+            <!-- <table class="table table-bordered">
+              
+              
+              : اسم العميل
+{{GetCustomername}} 
+{{GetCustomername}} 
+{{GetCustomername}} 
+
+            </table> -->
+            <table class="table table-bordered" >
+              <thead >
+                <tr >
+                   <th scope="col"> <label class="form-Lable">اسم المنتج</label></th>
+                  <th scope=" col"><label class="form-Lable">اسم العميل:</label>
+                     
+                    <th scope="col"><label class="form-Lable">الفائده *:</label> </th>
+                    <th scope="col">
+                      <label class="form-Lable"> تاريخ الاضافه * </label>
+        </th>
+                    <th scope="col"><label class="form-Lable">مبلغ القرض:</label>
+
+                    </th>
+                  <th><label class="form-Lable">عدد الاقساط :</label></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                   <td>  
+                     <mat-form-field>
+                     <input type="text" placeholder="" [formControl]="prodouctsIDControl" class="Tesr"  matInput
+                       [matAutocomplete]="autoprodoucts">
+                    <!-- </label> -->
+                    <mat-autocomplete #autoprodoucts="matAutocomplete" [displayWith]="GetProductIDFromSearchText">
+                        <mat-option *ngFor="let option of filteredOptionsProduct | async" [value]="option"
+                        (focusout)="GetProductIDandSetIDINTEXT();">
+                            {{option.prodouctName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field></td>
+                  <td>  
+                      <mat-form-field >
+<input type="text" placeholder=" " [formControl]="customerIDControl" matInput
+[matAutocomplete]="autoCustomer" >
+                    <mat-autocomplete #autoCustomer="matAutocomplete" [displayWith]="GetInputLonaGuarantorFromSearchText">
+                        <mat-option  *ngFor="let option of filteredOptionsCustomer | async" [value]="option"
+                        (focusout)="GetCustomerIDandSetIDINTEXT();">
+                            {{option.customerName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+              </td>
+
+              <td>
+ <label>الفائده
+                <select formControlName="DropdownInterestRate" class="form-controlOne"
+                style="width:120px; padding: 7px 27px 14px;"  
+                (click)="GETALLInterestRate();" (focusout)="GetInterestRateId()" >
+                       <option [ngValue]="null" >الفائده *</option>
+                       <option *ngFor="let _gETALLInterestRate of _GETALLInterestRate" [ngValue]="_gETALLInterestRate.interestRateId">
+                         {{_gETALLInterestRate.interestRateName}}
+                       </option>
+                     </select>
+                    </label>
+              </td>
+              <td><label style="direction: rtl;">تاريخ الاضافه
+                 <input matInput type="datetime-local"   formControlName="DateAdd" placeholder="start date" (change)="_GETValueFromDateAdd($any($event).target.value) "  class="">
+                
+                </label></td>
+            <td>
+              <label class="form-Lable">مبلغ القرض:
+                <input type="number"   formControlName="InputAmountLona" placeholder="مبلغ القرض"
+                 class="form-controlheaderinput">
+ </label>
+
+            </td>
+
+            <td>
+              <label class="form-Lable">عدد الاقساط :
+                  <input type="number" id="Notes" formControlName="InputMonthNumber" placeholder="عدد الاقساط" class="form-controlamountandmonth">
+                            </label>
+            </td>
+                 </tr>
+              </tbody>
+            </table>
+            
+                 </div>
+                 <div class="col-sm-2">
+                 </div>             
+                   
+                      <br /> <br /> <br />
+
+                      <div class="">
+ <button type="button" class="btn btn-primary" (click)="ButtonaddNewItem()">
+                          اضافة
+                        </button>
+            
+                 <button type="button" class="btn btn-success" (click)="AddnewLonaMaster();">حفظ (2)</button>
+
+                      <!-- /.col -->
+                      <!-- <br /> <br /> <br /> <br /> <br /> -->
+                      <div>
+                          <div class="table table-bordered">
+                              <div class="css-table-row">
+                                  <div class="  ">
+                                      #
+                                  </div> 
+                                   <div class=" ">
+                                    الكود
+                                  </div>
+                                  <div class=" ">
+                                    الاسم
+                                  </div>
+                                  <div class=" ">
+                                    الرقم القومى
+
+                                  </div>
+                               </div>
+    
+<div class="row" tbody formArrayName="iAddLonaInput" *ngFor="let _iAddLonaInput of $any(_AddNewLonaForm.get('iAddLonaInput')).controls;  
+    index as i " [attr.data-index]="i">
+
+    <button type="button" class="btn btn-danger " title="Delete"
+    (click)="Buttonremove(i)"> {{i}}  حذف صنف </button>
+ 
+  <input type="number" id="{{'TextNameCounter'+i}}"
+formControlName="TextNameCounter" [value]="i"
+placeholder="number" class="form-controlona"> 
+
+<div data-title="#" [formGroupName]="i" >
+<input type="number" id="{{'InputLonaGuarantor'+i}}"class="form-controlona"
+formControlName="InputLonaGuarantor" placeholder="الكود"> 
+</div>
+ <div data-title="#" [formGroupName]="i">
+
+    <input type="text" id="{{'InputcustomerName'+i}}"
+    class="form-controlona"      formControlName="InputcustomerName" placeholder="الاسم
+         ">
+                                  </div>
+ <div   data-title="#" [formGroupName]="i">
+ <input type="number"class="form-controlona" id="{{'InputcustomerNationalid'+i}}" formControlName="InputcustomerNationalid"   placeholder="الرقم القومى"maxlength="7"pattern="/^-?\d+\.?\d*$/" 
+ onKeyPress="if(this.value.length==7) return false;">
+                                  </div>
+                               </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row border-b-2 brc-default-l2"></div>
+              <hr />
+             
+              <div>   
+               </div>
+
+
+
+          </div>
+      </div>
+   </div>
+
+<!-- </body>
+
+</html> -->

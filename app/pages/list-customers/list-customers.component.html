@@ -1,0 +1,44 @@
+<nav class="navbar">
+  
+  
+    <input class="form-control" type="text" name="customerName" [(ngModel)]="customerName" (ngModelChange)="Search()"
+  placeholder="اسم العميل">
+  
+  
+   </nav> 
+  
+  <table class="table table-bordered" >
+    <thead>
+            <tr>
+              <th>كود  العميل</th>
+    
+         <th (click)="sort('customerName')">اسم العميل&nbsp;<i class="fa fa-sort"></i></th>
+         <th>الرقم القومى</th>
+        <th>العنوان</th>
+        <th>الهاتف</th>
+   
+        <th>تاريخ الانشاء</th>
+  
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let _customeresPagging of customeresPagging | orderBy: key: reverse | paginate :{itemsPerPage:5,currentPage:p};">
+  
+               
+                 <td>{{_customeresPagging.customerId}}</td>       
+                <td>{{_customeresPagging.customerName}}</td>  
+                <td>{{_customeresPagging.customerNationalid}}</td>     
+                <td>{{_customeresPagging.customerAddress}}</td>     
+                <td>{{_customeresPagging.DateAdd}}</td>     
+    
+                <td>
+                  <button class="btn btn-block btn-warning" 
+                  [routerLink]="['/pages/UpdateCustomers/', _customeresPagging.customerId]">Edit</button>
+              </td>
+  
+             </tr>
+        </tbody>
+        
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+        </table>

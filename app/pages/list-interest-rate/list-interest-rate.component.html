@@ -1,0 +1,39 @@
+<nav class="navbar">
+  
+  
+    <input class="form-control" type="text" name="InterestRateName" [(ngModel)]="InterestRateName" (ngModelChange)="Search()"
+  placeholder="اسم الفائده">
+  
+  
+   </nav> 
+  
+  <table class="table table-bordered" >
+    <thead>
+            <tr>
+              <th>الكود</th>
+    
+         <th (click)="sort('InterestRateName')">اسم الفائده&nbsp;<i class="fa fa-sort"></i></th>
+         <th>القيمه</th>
+   
+        <th>تاريخ الانشاء</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let _InterestRatePagging of InterestRatePagging | orderBy: key: reverse | paginate :{itemsPerPage:5,currentPage:p};">
+  
+               
+                 <td>{{_InterestRatePagging.interestRateId}}</td>       
+                <td>{{_InterestRatePagging.interestRateName}}</td>  
+                <td>{{_InterestRatePagging.interestRateValue}}</td>     
+     
+                <td>
+                  <button class="btn btn-block btn-warning" 
+                  [routerLink]="['/pages/UpdateInterestRate/', _InterestRatePagging.interestRateId]">Edit</button>
+              </td>
+  
+             </tr>
+        </tbody>
+        
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+        </table>

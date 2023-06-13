@@ -1,0 +1,29 @@
+<div class="col-sm-2" style="direction: rtl;">
+ 
+          
+          <label>Custom templates</label>
+          <ng-select [items]="cities3"
+                     bindLabel="name"
+                     bindValue="name"
+                     placeholder="Select city"
+                     [(ngModel)]="selectedCityName">
+              <ng-template ng-header-tmp>
+                Custom header
+              </ng-template>
+              <ng-template ng-label-tmp let-item="item">
+                  <img height="15" width="15" [src]="item.avatar"/>
+                  <b>{{item.name}}</b> is cool
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-index="index">
+                  <img height="15" width="15" [src]="item.avatar"/>
+                  <b>{{item.name}}</b>
+              </ng-template>
+              <ng-template ng-footer-tmp>
+                Custom footer
+              </ng-template>
+          </ng-select>
+          <p>
+              Selected city: {{selectedCityName}}
+          </p>
+          <hr />
+           
