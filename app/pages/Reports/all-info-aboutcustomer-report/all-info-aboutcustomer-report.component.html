@@ -14,12 +14,10 @@
         <button  class="btn btn-success" (click)="GETDataSYNC()">طلب التقرير</button>
         </div>
         <ngx-extended-pdf-viewer
-     [src]="'http://localhost:81/assets/ReportAllinfoAboutcustomerReportAllinfoAboutcustomer.pdf'"
-        [useBrowserLocale]="true"
-        [textLayer]="true"
-        [showHandToolButton]="true"
-        [showPresentationModeButton]="true"
-        [showDownloadButton]="false"
+        [(src)]="src" 
+        backgroundColor="#ffffff" 
+        [height]="'90vh'" 
+        [useBrowserLocale]="true">
     ></ngx-extended-pdf-viewer>
     
     

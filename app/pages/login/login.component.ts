@@ -43,7 +43,7 @@ localStorage.removeItem('localStorageroles')
         
         if(user.roles.indexOf('Admin')> -1){
 
-          this.router.navigate(["/pages/AllUserManagement"]);
+          this.router.navigate(["/pages/dashboard"]);
 
         }else{
           this.router.navigate(["/pages/UserManagement"])

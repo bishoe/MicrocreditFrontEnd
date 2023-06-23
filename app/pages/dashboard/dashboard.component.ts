@@ -78,20 +78,20 @@ export class DashboardComponent implements OnDestroy {
     dark: this.commonStatusCardsSet,
   };
 
-  constructor(private themeService: NbThemeService,
-              private solarService: SolarData) {
-    this.themeService.getJsTheme()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe(theme => {
-        this.statusCards = this.statusCardsByThemes[theme.name];
-    });
+  // constructor(private themeService: NbThemeService,
+  //             private solarService: SolarData) {
+  //   this.themeService.getJsTheme()
+  //     .pipe(takeWhile(() => this.alive))
+  //     .subscribe(theme => {
+  //       this.statusCards = this.statusCardsByThemes[theme.name];
+  //   });
 
-    this.solarService.getSolarData()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((data) => {
-        this.solarValue = data;
-      });
-  }
+  //   this.solarService.getSolarData()
+  //     .pipe(takeWhile(() => this.alive))
+  //     .subscribe((data) => {
+  //       this.solarValue = data;
+  //     });
+  // }
 
   ngOnDestroy() {
     this.alive = false;

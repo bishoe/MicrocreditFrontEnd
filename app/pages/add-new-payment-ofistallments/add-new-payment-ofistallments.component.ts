@@ -21,7 +21,7 @@ declare let $: any;
 export class AddNewPaymentOfistallmentsComponent implements OnInit {
 
   constructor(private _URLPathModule: URLPathModule, private _activatedRoute: ActivatedRoute, private router: Router, private _MainService: MainService, private fb: FormBuilder, private _PaymentOfistallmentsService: PaymentOfistallmentsService) { }
-
+//#region  var
   _AddNewPaymentOfistallments: FormGroup;
   _DetailsLona: FormGroup;
   amountPaidcontrol: FormControl;
@@ -71,7 +71,60 @@ export class AddNewPaymentOfistallmentsComponent implements OnInit {
   GetDiscountPercentagecontol; //ExpeditedPayment()
   noIstalments;
   GetFirstpaymentIdDetails;
-  //
+  //#endregion
+
+  formErrors = {
+    'amountPaidcontrol':'',
+    'DiscountPercentagecontol':''
+
+   };
+   validationMessages = {
+    'amountPaidcontrol': {
+      'required': '  مطلوب.',
+      'minlength': ' ',
+      'maxlength': 'اقصى عدد احرف مسموح به هو5 حرف فقط',
+
+    },
+     'DiscountPercentagecontol': {
+      'required': '  مطلوب.',
+      'minlength': 'الرقم لايمكن ان يقل عن 1 حرف',
+      'maxlength': 'اقصى عدد احرف مسموح به هو 2 حرف فقط',
+    },
+ 
+  };
+
+  CheckInputnumberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+  logValidationErrors(group: FormGroup = this._DetailsLona): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+  
+      this.formErrors[key] = '';
+      // abstractControl.value !== '' (This condition ensures if there is a value in the
+      // form control and it is not valid, then display the validation error)
+      if (abstractControl && !abstractControl.valid &&
+          (abstractControl.touched || abstractControl.dirty || abstractControl.value !== '')) {
+        const messages = this.validationMessages[key];
+  
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+  
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this._DetailsLona = this.fb.group({
       inputpaymentIdDetails: this.inputpaymentIdDetails,
@@ -87,8 +140,11 @@ export class AddNewPaymentOfistallmentsComponent implements OnInit {
       // statusLona:new FormControl(),
       // userID:new FormControl(),
       // LonaId:new FormControl(),
-      amountPaidcontrol: this.amountPaidcontrol,
-      DiscountPercentagecontol:this.DiscountPercentagecontol,
+      // amountPaidcontrol: this.amountPaidcontrol,
+      amountPaidcontrol:  new FormControl('', [Validators.required, Validators.maxLength(5), Validators.minLength(5) ,    ]),
+      DiscountPercentagecontol:  new FormControl('', [Validators.required, Validators.maxLength(5), Validators.minLength(5) ,    ]),
+
+      // DiscountPercentagecontol:this.DiscountPercentagecontol,
       iAddLonaInput: this.fb.array([
         // this.addNewItemInFormGroup()
       ]),
@@ -242,11 +298,7 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
 
   }
 
-// هنا هعمل الفانكشين اللى هتاخد المبلغ الاجمالى ثم هقوم بعمليه الخصم ثم هبعتها للباك اند عشان تقفل القرض ويسدد
-
-
 // this.ValueCalculateremainingamount
-
 
   Search() {
     if (this.noIstalments == '') {
@@ -265,7 +317,7 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
     this.key = key;
     this.reverse = !this.reverse;
   }
-  UpdateLona() {
+  Addnewpayment() {
     //#region Get Value
     let GetamountPaidcontrol = this._DetailsLona.get('amountPaidcontrol').value
     let SetAmountRemaining;
@@ -289,12 +341,28 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
    SetAmountRemaining = GetistalmentsAmount - GetamountamountPaid ; SetStatusIstalments = 2;
     
     CalcTotalAmount = GetamountPaidcontrol + GetamountamountPaid;
+console.log(
+  this.GetFirstpaymentIdDetails,
+  GetpaymentId,
+  GetistalmentsAmount,
+  CalcTotalAmount,
+  SetAmountRemaining,
+  GetnoIstalments,
+  GetmonthNumber,
+new Date (),
+  SetStatusIstalments
 
-    if (CalcTotalAmount < GetistalmentsAmount) {
+
+
+
+)
+
+if (CalcTotalAmount < GetistalmentsAmount) {
      let CalcRem = GetistalmentsAmount - GetamountamountPaid 
       SetAmountRemaining = CalcRem - GetamountPaidcontrol;
        SetStatusIstalments = 2;
-
+       var str = new Date().setSeconds(0,0);
+       var GetDateTimeNow = new Date(str).toISOString(); 
       this._PaymentOfistallmentsService.UpdatePayMonthAmount(
         this.GetFirstpaymentIdDetails,
         GetpaymentId,
@@ -303,7 +371,7 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
         SetAmountRemaining,
         GetnoIstalments,
         GetmonthNumber,
-        new Date(),
+      new Date (GetDateTimeNow),
         SetStatusIstalments,
       ).subscribe(response => {
         Swal.fire({
@@ -454,6 +522,7 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
     PaymentOfistallments => {
       this.PaymentOfistallmentsPagging = PaymentOfistallments
        this.GetFirstpaymentIdDetails = this.PaymentOfistallmentsPagging[index]['paymentIdDetails']
+       console.log()
        this._PaymentOfistallmentsService.DeleteLona(this.GetFirstpaymentIdDetails,
          GetpaymentId,0,0,0,0,GetmonthNumber,new Date(),SetStatusIstalments
         ).subscribe(response => {
@@ -503,7 +572,9 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
 console.log(GetpaymentId)
      this._MainService.UpdateWithIdAsync(  this.PaymentOfistallmentsPagging[0]['lonaId']
      ,this._URLPathModule.ChangeStatusMasterLona).subscribe(response => {
+
       this._DeleteLonaPaymentOfistallments()
+
      Swal.fire({
        title: 'تم !',
        text: 'الحفظ بنجاح',
@@ -556,8 +627,7 @@ console.log(GetpaymentId)
      
     
   }
-// الباك خلص فاضل الفرونت ونجرب
-// use when use ExpeditedPayment()=>>>>>
+ // use when use ExpeditedPayment()=>>>>>
   ChangStatusLonaInPaymentOfistallments(){
     let GetlonaIdFrompagging= this.PaymentOfistallmentsPagging[0]['lonaId']
       

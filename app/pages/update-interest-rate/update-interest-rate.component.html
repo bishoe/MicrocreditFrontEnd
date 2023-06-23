@@ -24,7 +24,8 @@
                     <label class="form-Lable">النسبه *</label>
                     <div class="form-group" [ngClass]="{'has-error' :  formErrors.interestRateValue }">
     
-                      <input type="number" class="form-control" placeholder="النسبه  " formControlName="interestRateValue"
+                      <input type="number" class="form-control" placeholder="النسبه  " formControlName="interestRateValue"  
+                      onKeyPress="if(this.value.length==2) return false;" (keypress)="CheckInputnumberOnly($event)"
                         (blur)="logValidationErrors()" />
                       <span class="help-block" *ngIf="formErrors.interestRateValue">
                         {{formErrors.interestRateValue}}

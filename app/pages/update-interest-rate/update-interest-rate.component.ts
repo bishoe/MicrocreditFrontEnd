@@ -51,7 +51,14 @@ export class UpdateInterestRateComponent implements OnInit {
       },
  
      };
+     CheckInputnumberOnly(event): boolean {
+      const charCode = (event.which) ? event.which : event.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+      }
+      return true;
   
+    }
      //#endregion end check Err
      constructor(private fb: FormBuilder,private _activatedRoute: ActivatedRoute,
       private validatorService: ValidatorService,private _InterestRateService:InterestRateService,private router: Router

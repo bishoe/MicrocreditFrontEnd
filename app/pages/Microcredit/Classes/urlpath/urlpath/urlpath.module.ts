@@ -10,128 +10,136 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class URLPathModule { 
-   readonly BranchesURL = 'https://localhost:44328/api/Branches' // Branches
-   readonly BranchesReportBRANCHEBranchCodeURL ='https://localhost:44328/api/Branches/ReportBRANCHEBranchCode'
+   readonly BranchesURL = 'http://localhost:8080/api/Branches' // Branches
+   readonly BranchesReportBRANCHEBranchCodeURL ='http://localhost:8080/api/Branches/ReportBRANCHEBranchCode'
  
  
-// readonly CustomersURL = 'https://localhost:44328/api/customers/CreateCustomers' //Customers api
+// readonly CustomersURL = 'http://localhost:8080/api/customers/CreateCustomers' //Customers api
 
-readonly CustomersURL = 'https://localhost:44328/api/customers' //Customers api
+readonly CustomersURL = 'http://localhost:8080/api/customers' //Customers api
 
-readonly SearchCustomerStatusURL  ='https://localhost:44328/api/Customers/SearchCustomerStatus'
+readonly SearchCustomerStatusURL  ='http://localhost:8080/api/Customers/SearchCustomerStatus'
 
-readonly  SearchLonaGuarantorStatusURL = 'https://localhost:44328/api/Customers/SearchLonaGuarantorStatus'
-readonly InterestRate = 'https://localhost:44328/api/interestRate' 
-readonly EmployeesURL = 'https://localhost:44328/api/Employees' // Employees  api
-readonly AddNewLoanURL = 'https://localhost:44328/api/AddNewLona/CreateNewLona' // api
+readonly  SearchLonaGuarantorStatusURL = 'http://localhost:8080/api/Customers/SearchLonaGuarantorStatus'
+readonly InterestRate = 'http://localhost:8080/api/interestRate' 
+readonly EmployeesURL = 'http://localhost:8080/api/Employees' // Employees  api
+readonly AddNewLoanURL = 'http://localhost:8080/api/AddNewLona/CreateNewLona' // api
   
 readonly AddNewPaymentOfistallmentsURL =
- 'https://localhost:44328/api/PaymentOfistallments/CreatePaymentOfistallmentsAsync' // api
+ 'http://localhost:8080/api/PaymentOfistallments/CreatePaymentOfistallmentsAsync' // api
 
  readonly DeleteLonaPaymentOfistallmentsURL =
- 'https://localhost:44328/api/PaymentOfistallments/DeleteLonaPaymentOfistallments' // api
+ 'http://localhost:8080/api/PaymentOfistallments/DeleteLonaPaymentOfistallments' // api
  
  
-readonly ExpeditedPaymentUrl = 'https://localhost:44328/api/PaymentOfistallments/ExpeditedPayment'
+readonly ExpeditedPaymentUrl = 'http://localhost:8080/api/PaymentOfistallments/ExpeditedPayment'
 
-readonly AddNPaymentOfistallmentsDeatilsURL  = 'https://localhost:44328/api/PaymentOfistallments/CreatePaymentOfistallmentsDetails' // api
-
-
-
-readonly UpdatePayMonthAmountURL ='https://localhost:44328/api/PaymentOfistallments/UpdatePayMonthAmount'
-
-readonly DeleteLonaURL ='https://localhost:44328/api/PaymentOfistallments/DeleteLona'
-
-readonly GetAllPaymentOfistallmentsURL ='https://localhost:44328/api/PaymentOfistallments/' // api
-
-readonly GetDetialsLonawithIDAsyncUrl ='https://localhost:44328/api/PaymentOfistallments/GetDetialsLonawithIDAsync' 
-
-
-readonly UpdateLonaMasterAsyncURL = 'https://localhost:44328/api/AddNewLona/UpdateLonaMasterAsync' // api
-
-readonly ChangeStatusMasterLona = 'https://localhost:44328/api/AddNewLona/ChangeStatusMasterLona' // api
+readonly AddNPaymentOfistallmentsDeatilsURL  = 'http://localhost:8080/api/PaymentOfistallments/CreatePaymentOfistallmentsDetails' // api
 
 
 
-readonly UIssuanceLonaAsyncURL = 'https://localhost:44328/api/AddNewLona/IssuanceLonaAsync' // api
+readonly UpdatePayMonthAmountURL ='http://localhost:8080/api/PaymentOfistallments/UpdatePayMonthAmount'
 
-readonly AddNewLoanmasterURL = 'https://localhost:44328/api/AddNewLona/CreateNewLonaMaster ' // api
+readonly DeleteLonaURL ='http://localhost:8080/api/PaymentOfistallments/DeleteLona'
 
-readonly TrackLonaURL = 'https://localhost:44328/api/AddNewLona/ ' // api
+readonly GetAllPaymentOfistallmentsURL ='http://localhost:8080/api/PaymentOfistallments/' // api
 
-readonly TrackLonaByidURL = 'https://localhost:44328/api/AddNewLona/GetLonaByidAsync'
+readonly GetDetialsLonawithIDAsyncUrl ='http://localhost:8080/api/PaymentOfistallments/GetDetialsLonawithIDAsync' 
 
 
-readonly TrackLonaByidPaymentOfistallmentsURL = 'https://localhost:44328/api/PaymentOfistallments/GetLonaByidAsync'
+readonly UpdateLonaMasterAsyncURL = 'http://localhost:8080/api/AddNewLona/UpdateLonaMasterAsync' // api
 
- readonly GetPaymentOfistallmentsByIdUrl= 'https://localhost:44328/api/PaymentOfistallments/GetPaymentOfistallmentsById'
+
+readonly UpdateLonaAsyncURL = 'http://localhost:8080/api/AddNewLona/UpdateLonaAsync' // api
+
+readonly DeleteLonaMasterURL = 'http://localhost:8080/api/AddNewLona/DeleteLonaMasterAsync/' // api
+
+readonly DeleteLonaDetailsURL = 'http://localhost:8080/api/AddNewLona/DeleteLonaDetailsAsync/' // api
+
+
+readonly ChangeStatusMasterLona = 'http://localhost:8080/api/AddNewLona/ChangeStatusMasterLona' // api
+
+
+
+readonly UIssuanceLonaAsyncURL = 'http://localhost:8080/api/AddNewLona/IssuanceLonaAsync' // api
+
+readonly AddNewLoanmasterURL = 'http://localhost:8080/api/AddNewLona/CreateNewLonaMaster ' // api
+
+readonly TrackLonaURL = 'http://localhost:8080/api/AddNewLona/ ' // api
+
+readonly TrackLonaByidURL = 'http://localhost:8080/api/AddNewLona/GetLonaByidAsync'
+
+
+readonly TrackLonaByidPaymentOfistallmentsURL = 'http://localhost:8080/api/PaymentOfistallments/GetLonaByidAsync'
+
+ readonly GetPaymentOfistallmentsByIdUrl= 'http://localhost:8080/api/PaymentOfistallments/GetPaymentOfistallmentsById'
 
 
  
- readonly GetCalculateremainingamountUrl = 'https://localhost:44328/api/PaymentOfistallments/GetCalculateremainingamount'
+ readonly GetCalculateremainingamountUrl = 'http://localhost:8080/api/PaymentOfistallments/GetCalculateremainingamount'
 
-  GetPaymentOfistallmentsForRemoveUrl= 'https://localhost:44328/api/PaymentOfistallments/GetPaymentOfistallmentsForRemove'
+  GetPaymentOfistallmentsForRemoveUrl= 'http://localhost:8080/api/PaymentOfistallments/GetPaymentOfistallmentsForRemove'
 
-readonly   trackLonaWithGuarantorIdUrl ='https://localhost:44328/api/AddNewLona/trackLonaWithGuarantorIds'
+readonly   trackLonaWithGuarantorIdUrl ='http://localhost:8080/api/AddNewLona/trackLonaWithGuarantorIds'
 
-readonly  SearchLonaGuarantorStatusesURL = 'https://localhost:44328/api/AddNewLona/SearchLonaGuarantorStatuses'
+readonly  SearchLonaGuarantorStatusesURL = 'http://localhost:8080/api/AddNewLona/SearchLonaGuarantorStatuses'
 
-readonly SearchcanCustomerBeGuanantorStatuses ='https://localhost:44328/api/AddNewLona/SearchcanCustomerBeGuanantorStatuses'
+readonly SearchcanCustomerBeGuanantorStatuses ='http://localhost:8080/api/AddNewLona/SearchcanCustomerBeGuanantorStatuses'
 
-readonly ProductsURL = 'https://localhost:44328/api/Products' // api Products
+readonly ProductsURL = 'http://localhost:8080/api/Products' // api Products
 
 
-readonly ListProductsURL = 'https://localhost:44328/api/Products' // api Products
+readonly ListProductsURL = 'http://localhost:8080/api/Products' // api Products
 
 
 
 UpdateProducts
 
 
-readonly GetProductsByIdURL = 'https://localhost:44328/api/Products/GetProductsById' // api Products
+readonly GetProductsByIdURL = 'http://localhost:8080/api/Products/GetProductsById' // api Products
 
-readonly GetProductbyBarcodeURL = 'https://localhost:44328/api/Products/GetProductbyBarcode/' // api Products
+readonly GetProductbyBarcodeURL = 'http://localhost:8080/api/Products/GetProductbyBarcode/' // api Products
  
 
-readonly ReportPermissionToEntertheStoreProduct ='https://localhost:44328/api/PermissionToEntertheStoreProduct/ReportPermissionToEntertheStoreProduct/'
+readonly ReportPermissionToEntertheStoreProduct ='http://localhost:8080/api/PermissionToEntertheStoreProduct/ReportPermissionToEntertheStoreProduct/'
 
-  readonly ReportGetSIssuanceLoansbetweenDate = 'https://localhost:44328/api/AllIStatusLoans/ReportAllIssuanceLoans'
+  readonly ReportGetSIssuanceLoansbetweenDate = 'http://localhost:8080/api/AllIStatusLoans/ReportAllIssuanceLoans'
 
 
 
   
 
 
-   readonly ReportGETpaymentOfistallmentsbetweenDateURL  ='https://localhost:44328/api/PaymentOfistallments/GETpaymentOfistallmentsbetweenDate/'
+   readonly ReportGETpaymentOfistallmentsbetweenDateURL  ='http://localhost:8080/api/PaymentOfistallments/GETpaymentOfistallmentsbetweenDate/'
 
 
 
 
-   readonly AllinfoAboutcustomerReportURL = 'https://localhost:44328/api/AddNewLona/ReportAllinfoAboutcustomer' // api
+   readonly AllinfoAboutcustomerReportURL = 'http://localhost:8080/api/AddNewLona/ReportAllinfoAboutcustomer' // api
 
-   readonly GetCountCustomersReportURL = 'https://localhost:44328/api/customers/ReportGetCountCustomers' // api
+   readonly GetCountCustomersReportURL = 'http://localhost:8080/api/customers/ReportGetCountCustomers' // api
  
    ReportAllIssuanceLoans
-   readonly ReportAllIssuanceLoansURL = 'https://localhost:44328/api/AllIStatusLoans/ReportAllIssuanceLoans' // api
+   readonly ReportAllIssuanceLoansURL = 'http://localhost:8080/api/AllIStatusLoans/ReportAllIssuanceLoans' // api
 
-readonly ReportProductUrl ='https://localhost:44328/api/product/ReportProduct/'
+readonly ReportProductUrl ='http://localhost:8080/api/product/ReportProduct/'
 
  
-readonly ReportManageStoreUrl = 'https://localhost:44328/api/ManageStore/ReportManageStore/'
+readonly ReportManageStoreUrl = 'http://localhost:8080/api/ManageStore/ReportManageStore/'
 
-readonly ReportConvertofStore ='https://localhost:44328/api/ConvertofStores/ReportConvertofStore/'
+readonly ReportConvertofStore ='http://localhost:8080/api/ConvertofStores/ReportConvertofStore/'
 
-readonly   ReceivingpermissionUrl ='https://localhost:44328/api/Receivingpermission/'
-readonly ReportReceivingpermissionUrl = 'https://localhost:44328/api/Receivingpermission/ReportReceivingpermission/'
-readonly QTProdouctURL = 'https://localhost:44328/api/QuantityProduct/GetQTProdouct'
+readonly   ReceivingpermissionUrl ='http://localhost:8080/api/Receivingpermission/'
+readonly ReportReceivingpermissionUrl = 'http://localhost:8080/api/Receivingpermission/ReportReceivingpermission/'
+readonly QTProdouctURL = 'http://localhost:8080/api/QuantityProduct/GetQTProdouct'
 
-readonly QTProdoucProductBYIDmanageStoreURL ="https://localhost:44328/api/QuantityProduct/GetQuantityProductBYIDandmanageStoreIDAsync/"
+readonly QTProdoucProductBYIDmanageStoreURL ="http://localhost:8080/api/QuantityProduct/GetQuantityProductBYIDandmanageStoreIDAsync/"
 
-readonly GetAllquantityProducts ='https://localhost:44328/api/QuantityProduct/GetAllquantityProducts/'
+readonly GetAllquantityProducts ='http://localhost:8080/api/QuantityProduct/GetAllquantityProducts/'
 
-readonly UpdateQTafterSellingURL ='https://localhost:44328/api/QuantityProduct/UpdateQTafterSelling' //after selling
+readonly UpdateQTafterSellingURL ='http://localhost:8080/api/QuantityProduct/UpdateQTafterSelling' //after selling
 
-readonly SuppliersURL = 'https://localhost:44328/api/Suppliers/'
+readonly SuppliersURL = 'http://localhost:8080/api/Suppliers/'
  
 
 

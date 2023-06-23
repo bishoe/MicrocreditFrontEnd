@@ -8,8 +8,7 @@
         <hr class="row brc-default-l1 mx-n1 mb-4" />
         <script src="https://codepen.io/shshaw/pen/QmZYMG.js"></script>
         <div class="row" style="direction: rtl;" [formGroup]="_AddNewLonaForm">
-<button (click)="Test()">sdsd</button>
-
+ 
           
           <div class="col-sm-4" style="direction: rtl;">
             <label class="form-Lable"> البيانات الاساسيه:</label>      
@@ -18,8 +17,7 @@
         
            <button   class="btn btn-success" (click)="UpdateMasterLona();">حفظ  </button>            
            <button   class="btn btn-warning" (click)=" IssuanceLona() "> اصدار القرض </button> 
- 
-
+           <button   class="btn btn-danger" (click)=" DeleteLonaMaster()">  حذف القرض </button> 
              <table class="table table-bordered ">
               <thead style="background-color: rgb(248, 248, 195);">
                 <tr>
@@ -146,8 +144,16 @@
                     </label></td>
                   <td>
                     <label class="form-Lable">مبلغ القرض:
+                      <div class="form-group" [ngClass]="{'has-error' :  formErrors.amountBeforeAddInterest }">
+
                       <input type="text" formControlName="amountBeforeAddInterest" placeholder="مبلغ القرض"
-                        class="form-controlheaderinput">
+                        class="form-controlheaderinput" (blur)="logValidationErrors()"  
+                        onKeyPress="if(this.value.length==6) return false;" (keypress)="CheckInputnumberOnly($event)">
+                        <span class="help-block" *ngIf="formErrors.amountBeforeAddInterest">
+                          {{formErrors.amountBeforeAddInterest}}
+                          </span>
+                      </div>
+    
                     </label>
 
                   </td>
@@ -155,7 +161,8 @@
                   <td>
                     <label class="form-Lable">عدد الاقساط :
                       <input type="text" id="Notes" formControlName="monthNumber" placeholder="عدد الاقساط"
-                        class="form-controlamountandmonth">
+                        class="form-controlamountandmonth" (blur)="logValidationErrors()"  
+                        onKeyPress="if(this.value.length==6) return false;" (keypress)="CheckInputnumberOnly($event)">
                     </label>
                   </td>
                 </tr>
@@ -200,23 +207,23 @@
                 </button>
 
                 <input type="number" id="{{'TextNameCounter'+i}}" formControlName="TextNameCounter" [value]="i"
-                  placeholder="number" class="form-controlona" disabled>
+                  placeholder="number" class="form-controlona"  >
 
                 <div data-title="#" [formGroupName]="i">
-                  <input type="number" id="{{'LonaGuarantor'+i}}" class="form-controlona"
-                    formControlName="LonaGuarantor" placeholder="number" disabled>
+                  <input type="number" id="{{'InputLonaGuarantor'+i}}" class="form-controlona"
+                    formControlName="InputLonaGuarantor" placeholder="number"  >
                 </div>
               
                 <div data-title="#" [formGroupName]="i">
 
                   <input type="text" id="{{'InputcustomerName'+i}}" class="form-controlona" 
-                    formControlName="InputcustomerName" placeholder="number" disabled>
+                    formControlName="InputcustomerName" placeholder="number"  >
                 </div>
 
                 <div data-title="#" [formGroupName]="i">
                   <input type="number" class="form-controlona" id="{{'InputcustomerNationalid'+i}}"
-                    formControlName="InputcustomerNationalid" placeholder="number" maxlength="7"
-                    pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==7) return false;" disabled>
+                    formControlName="InputcustomerNationalid" placeholder="number" maxlength="14"
+                    pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==14) return false;" >
                 </div>
                 <br/>
  

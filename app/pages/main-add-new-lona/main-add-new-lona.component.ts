@@ -29,21 +29,24 @@ _TextSearchCustomercode;
   })
 }
 SearchCustomerBycode() { 
-  localStorage.removeItem('localCustomeridSearchText')
-  localStorage.removeItem('LocalGetCustomerInfo')
-  localStorage.removeItem('LocalGETLengthLonaForCustomer')
+  // localStorage.removeItem('localCustomeridSearchText')
+  // localStorage.removeItem('LocalGetCustomerInfo')
+  // localStorage.removeItem('LocalGETLengthLonaForCustomer')
+
   this._TextSearchCustomercode= this.TextSearchCustomercode;
   this._TextSearchCustomercode =this._AddNewLonaForm.get('TextSearchCustomercode').value
   let GetCustomerCode = this._AddNewLonaForm.get('TextSearchCustomercode').value
   this._CustomersService.GETCustomersByIdAsync(GetCustomerCode).subscribe(
     (resultcode) => {
+
 if(resultcode ==null)Swal.fire({
   text:'الكود غير صحيح',
  icon:'error',
 
 
 });
-  
+// this.router.navigate(['/pages/mainaddnewlona'])
+
 window.stop()
 });
 
@@ -56,18 +59,23 @@ this._CustomersService.SearchCustomerStatusIdAsync(this._TextSearchCustomercode)
       
 // console.log(this._AddNewLonaForm.get('TextSearchCustomercode').value)
     }else{
-      localStorage.removeItem('localCustomeridSearchText')
-      localStorage.removeItem('LocalGetCustomerInfo')
-      localStorage.removeItem('LocalGETLengthLonaForCustomer')
+      // localStorage.removeItem('localCustomeridSearchText')
+      // localStorage.removeItem('LocalGetCustomerInfo')
+      // localStorage.removeItem('LocalGETLengthLonaForCustomer')
+localStorage.clear()
 
    localStorage.setItem("localCustomeridSearchText",GetCustomerInfo[0].customerId)
+
    localStorage.setItem("LocalGetCustomerInfo",JSON.stringify(GetCustomerInfo))
+
     localStorage.setItem("LocalGETLengthLonaForCustomer",JSON.stringify(GetCustomerInfo.length))// return number ex..2
+
+
     let GETLengthLonaForCustomer =JSON.parse(localStorage.getItem("LocalGETLengthLonaForCustomer"))
 
-if (GetCustomerInfo[0]['maxLonaForCustomer'] == GETLengthLonaForCustomer){ 
-Swal.fire({text:'عفوا العميل تخطى الحد المسموح به للاقتراض',icon:'info',
-showCancelButton:true,showConfirmButton:false
+  if (GetCustomerInfo[0]['maxLonaForCustomer'] == GETLengthLonaForCustomer){ 
+   Swal.fire({text:'عفوا العميل تخطى الحد المسموح به للاقتراض',icon:'info',
+  showCancelButton:true,showConfirmButton:false
  
 
 });

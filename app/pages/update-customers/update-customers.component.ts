@@ -30,6 +30,7 @@ export class UpdateCustomersComponent implements OnInit {
   dateissuancenationalID: FormControl;
   notes : FormControl;
   dateAdd: FormControl;
+  dateEdit:FormControl;
   UsersID: FormControl;
   maxLonaForCustomer :FormControl;
   maxNumberGuarantorLona :FormControl;
@@ -56,44 +57,50 @@ _GETValueFromdateAdd;//use in matInput
     //#region  
  let   Getrole=localStorage.getItem(Constants.USER_KEY)
 
-// if(Getrole.indexOf('Admin')>-1){
+if(Getrole.indexOf('Admin')>-1){
 
    
       this.UpdatecustomerForm= this.fb.group({
       
-    customerName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(10)]),
+        customerName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(10) ,    ]),
 
-    customerNationalid: new FormControl('', [Validators.required, ]),
+     customerNationalid: new FormControl('', [Validators.required, Validators.maxLength(14), Validators.minLength(14)]),
 
-    expirationdatenationalID :  this.expirationdatenationalID,
+     expirationdatenationalID :     localStorage.getItem("localStorageexpirationdatenationalID")
+     ,
+     dateissuancenationalID : this.dateissuancenationalID,
 
-    dateissuancenationalID : this.dateissuancenationalID,
+     firstPhone:new FormControl('', [Validators.required, Validators.maxLength(11), Validators.minLength(11) ,    ]),
+     
 
-    firstPhone:new FormControl('', [Validators.required, ]),
-    
-   secondPhone:  new FormControl('', [Validators.required, ]),
-    
-   businessName: new FormControl('', [Validators.required, ]),
+    secondPhone:  new FormControl('', [Validators.required, Validators.maxLength(11), Validators.minLength(11) ,    ]),
+     
 
-   workAddress : new FormControl('', [Validators.required, ]),
+      businessName: new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
+     
 
-   customerAddress : new FormControl('', [Validators.required, ]),
+    workAddress : new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
+     
 
-   notes : new FormControl('', [Validators.required, ]),
+    customerAddress : new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
+      
+     notes : new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
+      
+    // dateAdd : this.dateAdd,
 
-  dateAdd : this.dateAdd,
 
- dateEdit : this.dateAdd,
-UsersID :"1",
+    dateEdit : this.dateEdit,
+     UsersID :"1",
 
 canCustomerBeGuanantor:   this.canCustomerBeGuanantor,
-    
+     
 
-maxLonaForCustomer: new FormControl('', [Validators.required, ]),
-    
-maxNumberGuarantorLona :new FormControl('', [Validators.required, ]),
+maxLonaForCustomer: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(1) ,    ]),
+     
+maxNumberGuarantorLona :new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(1) ,    ]),
 
 SelectedRadiobtnValue:new FormControl('', [Validators.required, ]),
+
  
    customerId: new FormControl(null,[Validators.required]),
       });
@@ -122,11 +129,11 @@ SelectedRadiobtnValue:new FormControl('', [Validators.required, ]),
    
     this.GETIDFROMURL();
     this.SETdataTOFORMCONTROL();  
-    // }else if(Getrole.indexOf('user')){  
-    //   alert('Access denied');
-    //   this.router.navigate(["/login"]);
-    //   return;
-    // }
+    }else if(Getrole.indexOf('user')){  
+      alert('Access denied');
+      this.router.navigate(["/login"]);
+      return;
+    }
 //#endregion
 
 
@@ -139,6 +146,15 @@ GETIDFROMURL(){
   //GET ID FROM URL Pagging
   this._customerId= this._activatedRoute.snapshot.params['customerId'];
  }
+ CheckInputnumberOnly(event): boolean {
+  const charCode = (event.which) ? event.which : event.keyCode;
+  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    return false;
+  }
+  return true;
+
+}
+
 SETdataTOFORMCONTROL(){
 
 this._CustomersService.GETCustomersByIdAsync(  this._customerId).subscribe(data => {
@@ -309,7 +325,7 @@ showModalError() {
  
 
 }
-onChange(e) {
+GetValueFromRadioBtn(e) {
   window.localStorage.removeItem('localRadiobtncanCustomerBeGuanantor')
 
   window.localStorage.clear()

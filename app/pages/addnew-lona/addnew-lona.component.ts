@@ -97,8 +97,8 @@ export class AddnewLonaComponent implements OnInit {
   GETValueFromEndDateLona;
   GETValueFromDateAdd;
   _customerIdfromurl:any;
-  public GetcustomerNamefromurl = '';
-  GetGetcustomerNationalidfromurl;
+    GetcustomerNamefromurl = '';
+  GetcustomerNationalidfromurl;
   //#endregion
 
 
@@ -112,14 +112,35 @@ export class AddnewLonaComponent implements OnInit {
   constructor(private fb: FormBuilder, public _AddNewLonaService: AddNewLonaService, private _SearchproductbyService: SearchproductbyService, public _InterestRateService: InterestRateService, private _CustomersService: CustomersService, private _URLPathModule: URLPathModule, private _activatedRoute: ActivatedRoute,private router:Router) {
 
     // this.functions()
-    this.SearchCustomerBycode( this._activatedRoute.snapshot.params['customerId'])
-
     this.initializAutoComplete();
+
+
   }
 ngOnDestory(){
 localStorage.clear()
 }
+formErrors = {
+  'InputAmountLona':'',
+  'InputMonthNumber':'',
+     
+
+ };
  
+ validationMessages = {
+   'InputAmountLona': {
+     'required': '  مطلوب.',
+     'minlength': ' ',
+     'maxlength': ' ',
+
+   },
+  
+   
+   'InputMonthNumber': {
+    'required': '  مطلوب.',
+    'minlength': ' ',
+    'maxlength': ' ',
+  } 
+ };
 
   initializAutoComplete() {
     this.filteredOptionsProduct = this.prodouctsIDControl.valueChanges.pipe(
@@ -132,15 +153,15 @@ localStorage.clear()
     ),
 
 
-      this.filteredOptionsCustomer = this.customerIDControl
-        .valueChanges.pipe(
-          startWith(''),
-          debounceTime(400),
-          distinctUntilChanged(),
-          switchMap(val => {
-            return this.filterBYCustomerName(val || '')
-          })
-        )
+    this.filteredOptionsCustomer = this.customerIDControl
+    .valueChanges.pipe(
+      startWith(''),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(val => {
+        return this.filterBYCustomerName(val || '')
+      })
+    )
   }
   //#region Search Product
   GetProductIDFromSearchText(iProducts: IProducts) {
@@ -210,144 +231,104 @@ localStorage.clear()
         return;
       }  
 
-this._GetMAxLonaGuarantor = localStorage.getItem("localstorgecustomerId")
-
-// SearchcanCustomerBeGuanantorStatuses  هنا عايز اتحقق من انه العميل اللى واخد قروض ينفع يكون ضامن
-this._CustomersService.SearchcanCustomerBeGuanantorStatuses(this._GetMAxLonaGuarantor).subscribe(
-  (resultLonaGuarantor) => {
-
- console.log('>>>>>>>>>>'+resultLonaGuarantor)
- localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
-
- if(resultLonaGuarantor =='' )localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true') 
+      this._GetMAxLonaGuarantor = localStorage.getItem("localstorgecustomerId")
 
 
- 
-  if(resultLonaGuarantor[0].canCustomerBeGuanantor ==false){
-  Swal.fire({
-     text: 'لايوجد صلاحيه لهذا العميل ان يكون ضامن' 
-    // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
-    ,icon: 'error',
-  }),
-  this.Checkstatus_BAddDatainaddNewItemInFormGroup=false
-  // return;
-  window.stop()
-}else{
-this.Checkstatus_BAddDatainaddNewItemInFormGroup=true}
- })
-//
-
-//
-this._CustomersService.SearchLonaGuarantorStatusIdAsync(this._GetMAxLonaGuarantor).subscribe(
-  (resultLonaGuarantor) => {
-
-    console.log(resultLonaGuarantor);
-    localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
-
-if(resultLonaGuarantor == ''){localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true')
-
- 
-}
- 
-  else if (resultLonaGuarantor.length >= resultLonaGuarantor[0].maxNumberGuarantorLona) {
-      Swal.fire({
-
-        text: 'عفوا الضامن تخطى الحد المسموح للضمان باكثر من قرض' 
-        // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
-        ,icon: 'error',
-      }),
-      localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
-      window.stop()  
-       return;
-    }else{
-      localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true')
-  
-  }
-});
- //add data from autocompelet to text runtime
-   //#region 
-     this.Checkstatus_BAddDatainaddNewItemInFormGroup=localStorage.getItem('localCheckstatus_BAddDatainaddNewItemInFormGroup')
-
-       if( this.Checkstatus_BAddDatainaddNewItemInFormGroup == 'true'){
-         
-      if (this._AddNewLonaForm.get('iAddLonaInput').get (indexstring).get("InputLonaGuarantor").value == '')this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('InputLonaGuarantor').setValue(localStorage.getItem("localstorgecustomerId"))
-         
-       this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('InputcustomerName').setValue(localStorage.getItem("localstorgecustomername"))
+      this._CustomersService.SearchcanCustomerBeGuanantorStatuses(this._GetMAxLonaGuarantor).subscribe(
+        (resultLonaGuarantor) => {
+         localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
+      
+       if(resultLonaGuarantor =='' )localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true') 
        
-       if (this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get("InputcustomerNationalid").value == '') {
-        this._AddNewLonaForm.get('iAddLonaInput').get
-          (indexstring).get('InputcustomerNationalid').setValue(localStorage.getItem('localstorgecustomerNationalid'))
+      
+      //  console.log(resultLonaGuarantor)
+        if(resultLonaGuarantor[0].canCustomerBeGuanantor ==0){
+        Swal.fire({
+           text: 'لايوجد صلاحيه لهذا العميل ان يكون ضامن' 
+          // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
+          ,icon: 'error',
+          
+        }),
+       ///////////////////////////////////////////////////
+        this.Checkstatus_BAddDatainaddNewItemInFormGroup=false
+        // return;
+        window.stop()
+      }else{
+      this.Checkstatus_BAddDatainaddNewItemInFormGroup=true}
+       })
+      //
+      
+      //
+      this._CustomersService.SearchLonaGuarantorStatusIdAsync(this._GetMAxLonaGuarantor).subscribe(
+        (resultLonaGuarantor) => {
+      
+          console.log(resultLonaGuarantor);
+          localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
+      
+      if(resultLonaGuarantor == ''){localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true')
+      
+       
       }
-
-
-
-    }
-
-    if (this.GetCustomernameFromAutocomplete == null) this.GetCustomernameFromAutocomplete = localStorage.getItem('localstorgecustomername')
-
-    if (this.GetCustomerCodeFromAutocomplete == null) this.GetCustomerCodeFromAutocomplete = localStorage.getItem("localstorgecustomerId")
-
-    if (this.GetNationalidFromAutocomplete == null) this.GetNationalidFromAutocomplete = localStorage.getItem("localstorgecustomerNationalid")
-
+       
+        else if (resultLonaGuarantor.length >= resultLonaGuarantor[0].maxNumberGuarantorLona) {
+            Swal.fire({
+      
+              text: 'عفوا الضامن تخطى الحد المسموح للضمان باكثر من قرض' 
+              // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
+              ,icon: 'error',
+            }),
+            localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
+            window.stop()  
+             return;
+          }else{
+            localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true')
+        
+        }
+      }); 
+       //add data from autocompelet to text runtime
+         //#region 
+           this.Checkstatus_BAddDatainaddNewItemInFormGroup=localStorage.getItem('localCheckstatus_BAddDatainaddNewItemInFormGroup')
+      
+             if( this.Checkstatus_BAddDatainaddNewItemInFormGroup == 'true'){
+           
+            if (this._AddNewLonaForm.get('iAddLonaInput').get (indexstring).get("InputLonaGuarantor").value == '')this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('InputLonaGuarantor').setValue(localStorage.getItem("localstorgecustomerId"))
+         
+            if (this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get("InputcustomerName").value == '') {
+      
+             this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('InputcustomerName').setValue(localStorage.getItem("localstorgecustomername"))
+            }
+             if (this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get("InputcustomerNationalid").value == '') {
+              this._AddNewLonaForm.get('iAddLonaInput').get
+                (indexstring).get('InputcustomerNationalid').setValue(localStorage.getItem('localstorgecustomerNationalid'))
+            }
+      
+      
+      
+          }
+      
+          if (this.GetCustomernameFromAutocomplete == null) this.GetCustomernameFromAutocomplete = localStorage.getItem('localstorgecustomername')
+      
+          if (this.GetCustomerCodeFromAutocomplete == null) this.GetCustomerCodeFromAutocomplete = localStorage.getItem("localstorgecustomerId")
+      
+          if (this.GetNationalidFromAutocomplete == null) this.GetNationalidFromAutocomplete = localStorage.getItem("localstorgecustomerNationalid")
+      
+      
   }
 }
-  filterBYCustomerName(val: string): Observable<any> {
-    return this._SearchproductbyService.getData(this._URLPathModule.CustomersURL)
-      .pipe(
-        map(response => response.filter(options => {
-          return options.customerName.toLowerCase().indexOf(val.toLowerCase()) === 0//,
+filterBYCustomerName(val: string): Observable<any> {
+  return this._SearchproductbyService.getData(this._URLPathModule.CustomersURL)
+    .pipe(
+      map(response => response.filter(options => {
+        localStorage.setItem('Localstoragegetcustomer', options);
 
-        }))
+        return options.customerName.toLowerCase().indexOf(val.toLowerCase()) === 0//,
 
-      )
-  }
+      }))
+
+    )
+}
   //#endregion
   
-//   CheckStatusBeforeAddIninputs() {
-//     this._GetMAxLonaGuarantor = localStorage.getItem("localstorgecustomerId")
-
-// // SearchcanCustomerBeGuanantorStatuses  هنا عايز اتحقق من انه العميل اللى واخد قروض ينفع يكون ضامن
-// this._CustomersService.SearchcanCustomerBeGuanantorStatuses(this._GetMAxLonaGuarantor).subscribe(
-//   (resultLonaGuarantor) => {
-
-//   if(resultLonaGuarantor =='')this.Checkstatus_BAddDatainaddNewItemInFormGroup=true
-
-//   if(resultLonaGuarantor[0].canCustomerBeGuanantor ==false){
-//   Swal.fire({
-//      text: 'لايوجد صلاحيه لهذا العميل ان يكون ضامن' 
-//     // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
-//     ,icon: 'error',
-//   }),
-//   this.Checkstatus_BAddDatainaddNewItemInFormGroup=false
-//   // return;
-//   window.stop()
-// }else{
-// this.Checkstatus_BAddDatainaddNewItemInFormGroup=true}
-//  })
-// //
-
-// //
-// this._CustomersService.SearchLonaGuarantorStatusIdAsync(this._GetMAxLonaGuarantor).subscribe(
-//   (resultLonaGuarantor) => {
-
-//     console.log(resultLonaGuarantor);
-// if(resultLonaGuarantor == '')this.Checkstatus_BAddDatainaddNewItemInFormGroup= true;
-//     if (resultLonaGuarantor.length >= resultLonaGuarantor[0].maxNumberGuarantorLona) {
-//       Swal.fire({
-
-//         text: 'عفوا الضامن تخطى الحد المسموح للضمان باكثر من قرض' 
-//         // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
-//         ,icon: 'error',
-//       }),
-//       this.Checkstatus_BAddDatainaddNewItemInFormGroup=false;
-//       window.stop()  
-//        return;
-
-//     }else{
-//     this.Checkstatus_BAddDatainaddNewItemInFormGroup= true;}
-//   });
-  
-//   }
 
   //#region  GetInterestRate
   GETALLInterestRate() {
@@ -376,8 +357,10 @@ if(resultLonaGuarantor == ''){localStorage.setItem('localCheckstatus_BAddDataina
         // TextNameCounter:['',Validators.required],
         DropdownInterestRate: ['', Validators.required],
 
-        InputAmountLona: [, Validators.required],
-        InputMonthNumber: ['12', Validators.required],
+        InputAmountLona:  new FormControl('', [Validators.required, Validators.maxLength(6), Validators.minLength(6) ,    ]),
+
+        InputMonthNumber:  new FormControl('12', [Validators.required, Validators.maxLength(6), Validators.minLength(6) ,    ]),
+
         // StartDateLona:['',Validators.required],
         // EndDateLona:['',Validators.required],
         DateAdd: ['', Validators.required],
@@ -412,6 +395,9 @@ if(resultLonaGuarantor == ''){localStorage.setItem('localCheckstatus_BAddDataina
       NoColumn: null,
     };
     this.GETIDFROMURL() 
+    this.initializAutoComplete();
+    this.SearchCustomerBycode( this._activatedRoute.snapshot.params['customerId'])
+
   }
   addNewItemInFormGroup(): FormGroup {
     return this.fb.group({
@@ -458,19 +444,16 @@ if(resultLonaGuarantor == ''){localStorage.setItem('localCheckstatus_BAddDataina
    }
   //Get CUstomer Only
   SearchCustomerBycode(customerId: number) {
-    //  localStorage.removeItem('localCustomerNameSearchText')
-    this._CustomersService.GETCustomersByIdAsync(customerId).subscribe(
+     this._CustomersService.GETCustomersByIdAsync(customerId).subscribe(
       (result) => {
         // this.GETCustomerIDSearchText = result;
-        localStorage.setItem("localCustomerNameSearchText", result.customerName)
-        localStorage.setItem("localCustomerNationalidSearchText", result.customerNationalid)
-        localStorage.setItem("localCustomeridSearchText", result.customerId)
+        localStorage.clear()
+         this._customerIdfromurl = result.customerId
+        this.GetcustomerNamefromurl = result.customerName
+        this.GetcustomerNationalidfromurl=result.customerNationalid
       });
 
-    this.GetcustomerNamefromurl = localStorage.getItem('localCustomerNameSearchText')
-    this.GetGetcustomerNationalidfromurl = localStorage.getItem('localCustomerNationalidSearchText')
-    this._customerIdfromurl = localStorage.getItem('localCustomeridSearchText')
-
+ 
  
 
   }
@@ -597,7 +580,36 @@ this.AddnewLona();
     skillsFormArray.markAsDirty();
     skillsFormArray.markAsTouched();
   }
+  CheckInputnumberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
 
-
+  }
+  logValidationErrors(group: FormGroup = this._AddNewLonaForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+  
+      this.formErrors[key] = '';
+      // abstractControl.value !== '' (This condition ensures if there is a value in the
+      // form control and it is not valid, then display the validation error)
+      if (abstractControl && !abstractControl.valid &&
+          (abstractControl.touched || abstractControl.dirty || abstractControl.value !== '')) {
+        const messages = this.validationMessages[key];
+  
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+  
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+    });
+  }
 
 }

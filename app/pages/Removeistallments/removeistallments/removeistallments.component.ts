@@ -31,7 +31,7 @@ export class RemoveistallmentsComponent implements OnInit {
   UserId: FormControl;
   GetstartDateLona;
   //
-  _LonaIdfromurl: any;
+  paymentIdfromurl: any;
   GetPaymentOfistallments: IAddLona[];
   GetDetialsLonawithID: IAddLona;
   GetInterestRateName: [] = [];//using in set method
@@ -85,27 +85,31 @@ export class RemoveistallmentsComponent implements OnInit {
     })
     this.GETIDFROMURL();
     this.GetinfoPayment();
-  }
+   }
   GETIDFROMURL() {
-    //GET ID FROM URL Pagging
-    this._LonaIdfromurl = this._activatedRoute.snapshot.params['paymentId'];
+    //GET ID FROM URL and get info about lona and  Pagging
+    this.paymentIdfromurl = this._activatedRoute.snapshot.params['paymentId'];
     //TODO
     //  GetPaymentOfistallments
-    this._MainService.GETByIdAsync(this._LonaIdfromurl, this._URLPathModule.TrackLonaByidPaymentOfistallmentsURL).subscribe(data => {
+    this._MainService.GETByIdAsync(this.paymentIdfromurl, this._URLPathModule.TrackLonaByidPaymentOfistallmentsURL).subscribe(data => {
       this.GetPaymentOfistallments = data as [];
-
+ 
       //GetDetialsLonawithIDAsync
       this._MainService.GETByIdAsync(data[0].lonaId, this._URLPathModule.GetDetialsLonawithIDAsyncUrl).subscribe(data => {
         this.GetDetialsLonawithID = data;
         localStorage.setItem('GetLengthInputAmountLona', data)
+
         //  console.log(   this.GetDetialsLonawithID)
         this.GetstartDateLona = this.GetDetialsLonawithID[0].startDateLona
         //#region GET GuarantorId  
-        this._MainService.GETByIdAsync(this._LonaIdfromurl, this._URLPathModule.trackLonaWithGuarantorIdUrl).
 
-          subscribe(_GETLengthResulttrackLonaWithGuarantorId => {
-            this.CounterreturnElement = _GETLengthResulttrackLonaWithGuarantorId.length
+        this._MainService.GETByIdAsync(this.paymentIdfromurl, this._URLPathModule.trackLonaWithGuarantorIdUrl).subscribe(_GETLengthResulttrackLonaWithGuarantorId => {
 
+          // console.log(_GETLengthResulttrackLonaWithGuarantorId)
+
+         this.CounterreturnElement = _GETLengthResulttrackLonaWithGuarantorId.length
+
+        //  console.log(_GETLengthResulttrackLonaWithGuarantorId)
 
             //#endregion GET Guarantor Name base id 
 
@@ -132,11 +136,8 @@ export class RemoveistallmentsComponent implements OnInit {
             this.prodouctName = _GETProductInfo as []
             this.prodouctName = _GETProductInfo['prodouctName']
           })
-
-
         //#region 
-
-        this._MainService.GETByIdAsync(this._LonaIdfromurl,
+        this._MainService.GETByIdAsync(this.paymentIdfromurl,
           this._URLPathModule.GetPaymentOfistallmentsByIdUrl).subscribe(
             PaymentOfistallments => {
               this.lonaAmount = PaymentOfistallments[0].lonaAmount
@@ -146,11 +147,8 @@ export class RemoveistallmentsComponent implements OnInit {
               this.lonaAmount = localStorage.getItem('locallonaAmount')
               this.monthNumber = localStorage.getItem('localmonthNumber')
             })
-        //  console.log(localStorage.getItem('locallonaAmount'))
-
-        //#endregion
+         //#endregion
         this.customerId = this.GetDetialsLonawithID[0].customerId
-
         this.GetDropdownInterestRate = this.GetDetialsLonawithID[0].interestRateid,
           //#endregion  
           this._MainService.GETByIdAsync(this.GetDropdownInterestRate,
@@ -184,32 +182,26 @@ export class RemoveistallmentsComponent implements OnInit {
           LonaId: this.GetDetialsLonawithID[0].lonaId,
         });
       console.log(this._DetailsLona.value)
-
-
     }
-
-
-
   }
   GetinfoPayment() {
-    this._LonaIdfromurl = this._activatedRoute.snapshot.params['paymentId'];
+    this.paymentIdfromurl = this._activatedRoute.snapshot.params['paymentId'];
+    this._MainService.GETByIdAsync(this.paymentIdfromurl,
 
-    this._MainService.GETByIdAsync(this._LonaIdfromurl,
       this._URLPathModule.GetPaymentOfistallmentsForRemoveUrl).subscribe(
+
         PaymentOfistallments => {
+
           this.PaymentOfistallmentsPagging = PaymentOfistallments
-          // console.log(this.PaymentOfistallmentsPagging)
-          // console.log(this.PaymentOfistallmentsPagging.sort())
+
+            console.log(PaymentOfistallments)
 
           this.GetFirstpaymentIdDetails = this.PaymentOfistallmentsPagging[0]['paymentIdDetails']
           for (let index = 0; index < this.PaymentOfistallmentsPagging.length; index++) {
             this._DetailsLona.get('amountPaidcontrol').setValue(this.PaymentOfistallmentsPagging[0].istalmentsAmount)
             this._DetailsLona.get('inputpaymentIdDetails').setValue(this.PaymentOfistallmentsPagging[0].paymentIdDetails)
           }
-          // localStorage.setItem('localPaymentOfistallments',JSON.stringify)
-        })
-
-
+         })
   }
 
 
@@ -231,7 +223,7 @@ export class RemoveistallmentsComponent implements OnInit {
     this.key = key;
     this.reverse = !this.reverse;
   }
-  UpdateLona() {
+  Removeistallments() {
     //#region Get Value
     let GetamountPaidcontrol = this._DetailsLona.get('amountPaidcontrol').value
     let SetAmountRemaining;
@@ -249,18 +241,6 @@ export class RemoveistallmentsComponent implements OnInit {
  
    SetStatusIstalments = 0;
  
- console.log(
-
-  this.GetFirstpaymentIdDetails,
-  GetpaymentId,
-  GetistalmentsAmount,
-  CalcTotalAmount,
-  SetAmountRemaining,
-  GetnoIstalments,
-  GetmonthNumber,
-  new Date(),
-  SetStatusIstalments,
- )
       this._PaymentOfistallmentsService.UpdatePayMonthAmount(
         this.GetFirstpaymentIdDetails,
         GetpaymentId,
@@ -274,7 +254,7 @@ export class RemoveistallmentsComponent implements OnInit {
       ).subscribe(response => {
         Swal.fire({
           title: 'تم !',
-          text: 'الحفظ بنجاح',
+          text: 'الالغاء بنجاح',
           icon: 'success',
           confirmButtonText: 'موافق'
         });

@@ -157,7 +157,7 @@ return this._HttpClient.put<any>(`${this._URLPathModule.UpdateLonaMasterAsyncURL
 //     .pipe(catchError(this.handleError));
    
 // }
-UpdateNewLona_(
+UpdateLona(
   LonaGuarantorId:number, 
    LonaId:number,
    lonaDetailsId:number,
@@ -171,7 +171,7 @@ UpdateNewLona_(
   };
 
   return this._HttpClient.put<any>
-  (this._URLPathModule.UpdateLonaMasterAsyncURL,  this._IAddLonaDetails , {
+  (this._URLPathModule.UpdateLonaAsyncURL,  this._IAddLonaDetails , {
     
     headers: new HttpHeaders({
   
@@ -183,6 +183,32 @@ UpdateNewLona_(
    
     
 }
+DeleteLonaMaster(LonaId:number):Observable<number>{
+  let httpheaders=new HttpHeaders()
+  .set('Content-type','application/Json');
+  let options={
+    headers:httpheaders
+  };
+ 
+  return this._HttpClient.delete<number>
+  (this._URLPathModule.DeleteLonaMasterURL +  LonaId ).pipe(catchError(this.handleError));
+    
+   }  
+
+
+
+DeleteLonaDetails(   lonaDetailsId:number):Observable<number>{
+  let httpheaders=new HttpHeaders()
+  .set('Content-type','application/Json');
+  let options={
+    headers:httpheaders
+  };
+ 
+  return this._HttpClient.delete<number>
+  (this._URLPathModule.DeleteLonaDetailsURL +  lonaDetailsId ).pipe(catchError(this.handleError));
+    
+   }  
+  
 
 IssuanceLonaAsync(
   LonaId:number,

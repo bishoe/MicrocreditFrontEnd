@@ -13,7 +13,7 @@
               <div class="form-group" [ngClass]="{'has-error' :  formErrors.customerName }">
                 <label class="form-Lable">اسم العميل</label>
                 <div class="col-sm-8">
-                  <input  id="customerName" formControlName="customerName" type="text" class="form-control" (blur)="logValidationErrors()">
+                  <input  id="customerName" formControlName="customerName" type="text" class="form-control" (blur)="logValidationErrors()"    >
                   <span class="help-block" *ngIf="formErrors.customerName">
                     {{formErrors.customerName}}
                     </span>
@@ -23,7 +23,9 @@
               <div class="form-group" [ngClass]="{'has-error' :  formErrors.dateissuancenationalID }">
                 <label class="form-Lable">تاريخ الاصدار</label>
                 <div class="col-sm-8">
- <input matInput type="datetime-local" [formControl]="dateissuancenationalID" (change)="_GETValueFromdateissuancenationalID($any($event).target.value)" 
+ <input matInput type="datetime-local" [formControl]="dateissuancenationalID" 
+ (change)="_GETValueFromdateissuancenationalID($any($event).target.value)" 
+  class="form-control"  
           />
 
                      <span class="help-block" *ngIf="formErrors.dateissuancenationalID">
@@ -35,7 +37,8 @@
                 <label class="form-Lable">الهاتف</label>
                 <div class="col-sm-8">
                   
-				  <input  id="firstPhone" formControlName="firstPhone" type="text" class="form-control" (blur)="logValidationErrors()">
+				  <input  id="firstPhone" formControlName="firstPhone" type="text" class="form-control" (blur)="logValidationErrors()"  
+          onKeyPress="if(this.value.length==11) return false;" (keypress)="CheckInputnumberOnly($event)">
 				  
                   <span class="help-block" *ngIf="formErrors.firstPhone">
                     {{formErrors.firstPhone}}
@@ -76,8 +79,9 @@
               <div class="form-group" [ngClass]="{'has-error' :  formErrors.maxLonaForCustomer }">
                 <label class="form-Lable">اقصى عدد قروض مسموح *</label>
                 <div class="col-sm-8">
-				  <input  id="maxLonaForCustomer" formControlName="maxLonaForCustomer" type="text" class="form-control" (blur)="logValidationErrors()">
-                  <span class="help-block" *ngIf="formErrors.maxLonaForCustomer">
+				  <input  id="maxLonaForCustomer" formControlName="maxLonaForCustomer" type="text" class="form-control" (blur)="logValidationErrors()" onKeyPress="if(this.value.length==2) return false;" (keypress)="CheckInputnumberOnly($event)">
+
+                  <span class="help-block" *ngIf="formErrors.maxLonaForCustomer"  >
                     {{formErrors.maxLonaForCustomer}}
                     </span>
                 </div>
@@ -88,78 +92,41 @@
                 <div class="form-group" [ngClass]="{'has-error' :  formErrors.customerNationalid }">
                   <label class="form-Lable">الرقم القومى *</label>
                   <div class="col-sm-8">
-            <input  id="customerNationalid" formControlName="customerNationalid" type="text" class="form-control" (blur)="logValidationErrors()">
+            <input  id="customerNationalid" formControlName="customerNationalid" type="text" class="form-control" (blur)="logValidationErrors()" 
+         
+              
+onKeyPress="if(this.value.length==14) return false;"(keypress)="CheckInputnumberOnly($event)" >
                     <span class="help-block" *ngIf="formErrors.customerNationalid">
                       {{formErrors.customerNationalid}}
                       </span>
                   </div>
                 </div>
-                 <!-- <div class="form-group">
                   
- <label class="form-Lable">
-  <label class="form-Lable">تاريخ الانتهاء *</label>
-  <mat-form-field appearance="fill">
-
-    <mat-label>تاريخ الانتهاء</mat-label>
-       <input matInput [matDatepicker]="picker1" [formControl]="expirationdatenationalID" (change)="_GETValueFromexpirationdatenationalID($any($event).target.value) ">
-
-      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-      <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-</label>
-
-                 </div> -->
-
-                 <!-- <div class="form-group" [ngClass]="{'has-error' :  formErrors.dateissuancenationalID }">
-                  <label class="form-Lable">تاريخ الانتهاء</label>
-                  <div class="col-sm-8">
-                    <mat-form-field appearance="fill">
-                      <mat-label>تاريخ الانتهاء</mat-label>
-                         <input matInput [matDatepicker]="pickerexpirationdatenationalID" [formControl]="expirationdatenationalID" (change)="_GETValueFromexpirationdatenationalID($any($event).target.value) " (blur)="logValidationErrors()">
-                        <mat-datepicker-toggle matIconSuffix [for]="pickerexpirationdatenationalID"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerexpirationdatenationalID></mat-datepicker>
-                      </mat-form-field>
-                    <span class="help-block" *ngIf="formErrors.expirationdatenationalID">
-                      {{formErrors.expirationdatenationalID}}
-                      </span>
-                  </div>
-                </div> -->
                 <div class="form-group" [ngClass]="{'has-error' :  formErrors.expirationdatenationalID }">
                   <label class="form-Lable">تاريخ الانتهاء</label>
                   <div class="col-sm-8">
                        <mat-label>تاريخ الانتهاء</mat-label>
  
- <input matInput type="datetime-local"[formControl]="expirationdatenationalID" (change)="_GETValueFromexpirationdatenationalID($any($event).target.value) "  />
+ <input matInput type="datetime-local"[formControl]="expirationdatenationalID" (change)="_GETValueFromexpirationdatenationalID($any($event).target.value) "   class="form-control"/>
                        <span class="help-block" *ngIf="formErrors.expirationdatenationalID">
                       {{formErrors.expirationdatenationalID}}
                       </span>
                   </div>
                 </div>
-                <!-- <div class="form-group">
-     <label class="form-Lable">هاتف المنزل *</label>
- <input type="text" class="form-control" placeholder=" هاتف المنزل*"
- formControlName="secondPhone"   />
-                 </div> -->
-
-
-
+               
                  <div class="form-group" [ngClass]="{'has-error' :  formErrors.secondPhone }">
                   <label class="form-Lable">هاتف المنزل *</label>
                   <div class="col-sm-8">
                     
-            <input  id="secondPhone" formControlName="secondPhone" type="text" class="form-control" (blur)="logValidationErrors()">
-            
-            
+            <input  id="secondPhone" formControlName="secondPhone" type="text" class="form-control" (blur)="logValidationErrors()"  
+            onKeyPress="if(this.value.length==11) return false;" (keypress)="CheckInputnumberOnly($event)">        
           
                     <span class="help-block" *ngIf="formErrors.secondPhone">
                       {{formErrors.secondPhone}}
                       </span>
                   </div>
                 </div>
-                <!-- <div class="form-group">
-                  <label class="form-Lable">عنوان العمل *</label>
-            <input type="text" class="form-control" placeholder=" عنوان العمل*" formControlName="workAddress"  />
-                  </div> -->
+             
                   <div class="form-group" [ngClass]="{'has-error' :  formErrors.workAddress }">
                     <label class="form-Lable">عنوان العمل *</label>
                     <div class="col-sm-8">
@@ -169,21 +136,16 @@
                         </span>
                     </div>
                   </div>
-
-
-<!-- 
-                  <div class="form-group">
-                    <label class="form-Lable">اقصى حد مسموح للضمان *</label>
-                       <input type="text" class="form-control" placeholder="maxNumberGuarantorLona *"
-                      formControlName="maxNumberGuarantorLona" />
-                  </div> -->
+ 
 
                   <div class="form-group" [ngClass]="{'has-error' :  formErrors.maxNumberGuarantorLona }">
                     <label class="form-Lable">اقصى حد مسموح للضمان *</label>
                     <div class="col-sm-8">
                       
-              <input  id="maxNumberGuarantorLona" formControlName="maxNumberGuarantorLona" type="text" class="form-control" (blur)="logValidationErrors()">
-                      <span class="help-block" *ngIf="formErrors.maxNumberGuarantorLona">
+              <input  id="maxNumberGuarantorLona" formControlName="maxNumberGuarantorLona" type="text" class="form-control" (blur)="logValidationErrors()"  
+               onKeyPress="if(this.value.length==2) return false;" (keypress)="CheckInputnumberOnly($event)">
+                      <span class="help-block" *ngIf="formErrors.maxNumberGuarantorLona" appOnlynumber
+                      onKeyPress="if(this.value.length==14) return false;">
                         {{formErrors.maxNumberGuarantorLona}}
                         </span>
                     </div>
@@ -201,10 +163,10 @@
                 </mat-radio-button>  
               </mat-radio-group> -->
      <input
-              type="radio"id="true" name="sample" value="1" (change)="onChange($event)" /> 
+              type="radio"id="true" name="sample" value="1" (change)="GetValueFromRadioBtn($event)" /> 
               <label for="a">نعم</label> 
               
-              <input   type="radio"  id="false"  name="sample"  value="0"   (change)="onChange($event)" />
+              <input   type="radio"  id="false"  name="sample"  value="0"   (change)="GetValueFromRadioBtn($event)" />
               <label for="b">لا</label>
                   </div>
           
@@ -224,7 +186,7 @@
  <!-- <div class="form-group" [ngClass]="{'has-error' :  formErrors.dateAdd }"> -->
   <mat-label>تاريخ الاضافة</mat-label>
   <div class="col-sm-8">
-<input matInput type="datetime-local"[formControl]="dateAdd" (change)="_GETValueFromDateAdd($any($event).target.value) "  />
+<input matInput type="datetime-local"[formControl]="dateAdd" (change)="_GETValueFromDateAdd($any($event).target.value) "  class="form-control" />
        <span class="help-block" *ngIf="formErrors.DateAdd">
       {{formErrors.dateAdd}}
       </span>
@@ -233,7 +195,7 @@
  
               </div>
                
-              <input type="submit" class="btnRegister" value="اضافة"   
+              <input type="submit" class="btnRegister" value="اضافة"    [disabled]="!customerForm.valid" 
                 (click)="AddCustomer()"  />
 
             </div>

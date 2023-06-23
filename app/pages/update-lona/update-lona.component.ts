@@ -21,6 +21,7 @@ import { empty } from 'rxjs';
 import { PaymentOfistallmentsService } from '../Microcredit/Services/payment-ofistallments.service';
 import { ICustomers } from '../Microcredit/Classes/icustomers';
 import { Constants } from '../login/Helper/Constants';
+import { icon } from 'leaflet';
 declare let $: any;
 
 
@@ -68,6 +69,9 @@ export class UpdateLonaComponent implements OnInit {
   //#endregion
   //#region 
   LonaGuarantor: FormControl;
+
+  InputLonaGuarantor: FormControl;
+
   InputProdcutId: FormControl;
   InputcustomerNationalid;
   InputcustomerName;
@@ -96,6 +100,10 @@ export class UpdateLonaComponent implements OnInit {
   public GetcustomerNationalidFromSearch// save Id use in GetCustomerIDFromSearchText() ;
   _GETALLInterestRate: IInterestRate[] = []; //GETALLInterestRate
   GetIdFromDropdownInterestRate;
+  _customerIdfromurl:any;
+  GetcustomerNamefromurl = '';
+GetcustomerNationalidfromurl;
+
   //#endregion
   //#endregion
   LonaEdit: IAddLona;
@@ -128,8 +136,9 @@ export class UpdateLonaComponent implements OnInit {
   GETValueFromEndDateLona;
   GETValueFromDateAdd;
   _LonaIdfromurl: any;
-  public GetcustomerNamefromurl = '';
-  GetGetcustomerNationalidfromurl;
+   GetGetcustomerNationalidfromurl;
+   Checkstatus_BAddDatainaddNewItemInFormGroup; 
+
   //#endregion
   ////GetMAxLonaGuarantor
   _GetMAxLonaGuarantor;
@@ -146,6 +155,29 @@ export class UpdateLonaComponent implements OnInit {
 
   //#endregion
   //#endregion var
+
+  formErrors = {
+    'amountBeforeAddInterest':'',
+    'monthNumber':'',
+       
+  
+   };
+   
+   validationMessages = {
+     'amountBeforeAddInterest': {
+       'required': '  مطلوب.',
+       'minlength': ' ',
+       'maxlength': ' ',
+  
+     },
+    
+     
+     'monthNumber': {
+      'required': '  مطلوب.',
+      'minlength': ' ',
+      'maxlength': ' ',
+    } 
+   };
   constructor(private fb: FormBuilder, public _AddNewLonaService: AddNewLonaService, private _SearchproductbyService: SearchproductbyService, public _InterestRateService: InterestRateService, private _CustomersService: CustomersService, private _URLPathModule: URLPathModule, private _activatedRoute: ActivatedRoute, private router: Router, private _MainService: MainService, private _PaymentOfistallmentsService: PaymentOfistallmentsService) {
 
     // this.functions()
@@ -228,24 +260,122 @@ export class UpdateLonaComponent implements OnInit {
 
   }
   //Add this id in hidden input  or var
+  // GetCustomerIDandSetIDINTEXT() {
+  //   for (let index = 0; index <= this.CounterAddNewElement; index++) {
+  //     var IndexLoop = index;
+  //     var indexstring = String(IndexLoop)
+
+  //     if (this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get("LonaGuarantor").value == '') this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('LonaGuarantor').setValue(localStorage.getItem("localCustomerNameSearchText"))
+
+  //     this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('LonaGuarantor').setValue(localStorage.getItem("localstorgecustomerId"))
+
+  //   }
+
+  //   if (this.GetCustomernameFromAutocomplete == null) this.GetCustomernameFromAutocomplete = localStorage.getItem('localstorgecustomername')
+
+  //   if (this.GetCustomerCodeFromAutocomplete == null) this.GetCustomerCodeFromAutocomplete = localStorage.getItem("localstorgecustomerId")
+
+  //   if (this.GetNationalidFromAutocomplete == null) this.GetNationalidFromAutocomplete = localStorage.getItem("localstorgecustomerNationalid")
+
+  // }
+
   GetCustomerIDandSetIDINTEXT() {
-    for (let index = 0; index <= this.CounterAddNewElement; index++) {
-      var IndexLoop = index;
-      var indexstring = String(IndexLoop)
+    // console.log(localStorage.getItem("localstorgecustomerId"))
+        for (let index = 0; index <= this.CounterAddNewElement; index++) {
+          var IndexLoop = index;
+          var indexstring = String(IndexLoop)
+          if (localStorage.getItem("localstorgecustomerId") == this._customerIdfromurl) {
+       
+            Swal.fire({
+               text: '  عفوا لايمكن للعميل ان يكون ضامن وعميل فى نفس القرض ',
+              icon: 'error',
+              confirmButtonText: 'موافق',
+    
+            })
+            window.stop()
+            return;
+          }  
+    
+    this._GetMAxLonaGuarantor = localStorage.getItem("localstorgecustomerId")    
+    this._CustomersService.SearchcanCustomerBeGuanantorStatuses(this._GetMAxLonaGuarantor).subscribe(
+      (resultLonaGuarantor) => {
+       localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
+    
+     if(resultLonaGuarantor =='' )localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true') 
+     
+    
 
-      if (this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get("LonaGuarantor").value == '') this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('LonaGuarantor').setValue(localStorage.getItem("localCustomerNameSearchText"))
-
-      this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('LonaGuarantor').setValue(localStorage.getItem("localstorgecustomerId"))
-
+       if(resultLonaGuarantor[0].canCustomerBeGuanantor == 0 ){
+      Swal.fire({
+         text: 'لايوجد صلاحيه لهذا العميل ان يكون ضامن' 
+        // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
+        ,icon: 'error',
+        
+      }),
+     ///////////////////////////////////////////////////
+      this.Checkstatus_BAddDatainaddNewItemInFormGroup=false
+      // return;
+      window.stop()
+    }else{
+    this.Checkstatus_BAddDatainaddNewItemInFormGroup=true}
+     })
+    //
+    
+    //
+    this._CustomersService.SearchLonaGuarantorStatusIdAsync(this._GetMAxLonaGuarantor).subscribe(
+      (resultLonaGuarantor) => {
+    
+         localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
+    
+    if(resultLonaGuarantor == ''){localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true')
+    
+     
     }
-
-    if (this.GetCustomernameFromAutocomplete == null) this.GetCustomernameFromAutocomplete = localStorage.getItem('localstorgecustomername')
-
-    if (this.GetCustomerCodeFromAutocomplete == null) this.GetCustomerCodeFromAutocomplete = localStorage.getItem("localstorgecustomerId")
-
-    if (this.GetNationalidFromAutocomplete == null) this.GetNationalidFromAutocomplete = localStorage.getItem("localstorgecustomerNationalid")
-
-  }
+     
+      else if (resultLonaGuarantor.length >= resultLonaGuarantor[0].maxNumberGuarantorLona) {
+          Swal.fire({
+    
+            text: 'عفوا الضامن تخطى الحد المسموح للضمان باكثر من قرض' 
+            // + resultLonaGuarantor.length + resultLonaGuarantor[0].maxNumberGuarantorLona,
+            ,icon: 'error',
+          }),
+          localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
+          window.stop()  
+           return;
+        }else{
+          localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true')
+      
+      }
+    }); 
+     //add data from autocompelet to text runtime
+       //#region 
+         this.Checkstatus_BAddDatainaddNewItemInFormGroup=localStorage.getItem('localCheckstatus_BAddDatainaddNewItemInFormGroup')
+    
+           if( this.Checkstatus_BAddDatainaddNewItemInFormGroup == 'true'){
+         
+          if (this._AddNewLonaForm.get('iAddLonaInput').get (indexstring).get("InputLonaGuarantor").value == ''){this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('InputLonaGuarantor').setValue(localStorage.getItem("localstorgecustomerId"))}
+       
+          if (this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get("InputcustomerName").value == '') {
+    
+           this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get('InputcustomerName').setValue(localStorage.getItem("localstorgecustomername"))
+          }
+           if (this._AddNewLonaForm.get('iAddLonaInput').get(indexstring).get("InputcustomerNationalid").value == '') {
+            this._AddNewLonaForm.get('iAddLonaInput').get
+              (indexstring).get('InputcustomerNationalid').setValue(localStorage.getItem('localstorgecustomerNationalid'))
+          }
+    
+    
+    
+        }
+    
+        if (this.GetCustomernameFromAutocomplete == null) this.GetCustomernameFromAutocomplete = localStorage.getItem('localstorgecustomername')
+    
+        if (this.GetCustomerCodeFromAutocomplete == null) this.GetCustomerCodeFromAutocomplete = localStorage.getItem("localstorgecustomerId")
+    
+        if (this.GetNationalidFromAutocomplete == null) this.GetNationalidFromAutocomplete = localStorage.getItem("localstorgecustomerNationalid")
+    
+      }
+    }
   filterBYCustomerName(val: string): Observable<any> {
     return this._SearchproductbyService.getData(this._URLPathModule.CustomersURL)
       .pipe(
@@ -323,8 +453,10 @@ export class UpdateLonaComponent implements OnInit {
 
       customerId: new FormControl(),
       interestRateid: new FormControl(),
-      monthNumber: new FormControl(),
-      amountBeforeAddInterest: new FormControl(),
+      monthNumber:  new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(1) ,    ]),
+
+      amountBeforeAddInterest:  new FormControl('', [Validators.required, Validators.maxLength(6), Validators.minLength(6) ,    ]),
+
       amountAfterAddInterest: new FormControl(),
       statusLona: new FormControl(),
       userID: new FormControl(),
@@ -381,7 +513,6 @@ export class UpdateLonaComponent implements OnInit {
   //#endregion 
   SETdataTOFORMCONTROL() {
     this._GETALLInterestRate = JSON.parse(localStorage.getItem('GETALLInterestRate'))
-    // console.log(this._GETALLInterestRate)
     //#region GET GuarantorId  
 
     this._MainService.GETByIdAsync(this._LonaIdfromurl, this._URLPathModule.trackLonaWithGuarantorIdUrl).
@@ -399,6 +530,7 @@ export class UpdateLonaComponent implements OnInit {
         this._MainService.GETByIdAsync(_GETLengthResulttrackLonaWithGuarantorId[0].interestRateid, this._URLPathModule.InterestRate).
           subscribe(datainterestRate => {
 
+ 
             this.GetInterestRateName = datainterestRate.interestRateName
             this.GetinterestRateIdwhenchange = datainterestRate.interestRateId
             localStorage.setItem('localGetInterestRateName', JSON.stringify(this.GetInterestRateName))
@@ -408,14 +540,14 @@ export class UpdateLonaComponent implements OnInit {
             this.GetInterestRateName = JSON.parse(localStorage.getItem('localGetInterestRateName'))
 
             this.GetinterestRateIdwhenchange = JSON.parse(localStorage.getItem('localstorgeinterestRateId'))
+
             this.InputcustomerNationalid =_GETLengthResulttrackLonaWithGuarantorId[0].customerNationalid
+
             this.InputcustomerName =_GETLengthResulttrackLonaWithGuarantorId[0].customerName
           });
       
     this.customerId = this.LonaEdit[0].customerId
     });   
-     console.log(this.LonaEdit)
-
     this.InputcustomerNationalid = this.LonaEdit[0].customerNationalid
     this.GetDropdownInterestRate = this.LonaEdit[0].interestRateid,
       //#endregion  
@@ -468,7 +600,7 @@ export class UpdateLonaComponent implements OnInit {
 
           //  if (this._AddNewLonaForm.get('iAddLonaInput').get(Stringindex).get('LonaGuarantor').value == '' ) this._AddNewLonaForm.get('iAddLonaInput').get(Stringindex).get('LonaGuarantor').setValue(_GETCustomerInfo['customerId'])
 
-          if (this._AddNewLonaForm.get('iAddLonaInput').get('0').get('LonaGuarantor').value == '') this._AddNewLonaForm.get('iAddLonaInput').get('0').get('LonaGuarantor').setValue(_GETCustomerInfo['customerId'])
+          if (this._AddNewLonaForm.get('iAddLonaInput').get('0').get('InputLonaGuarantor').value == '') this._AddNewLonaForm.get('iAddLonaInput').get('0').get('InputLonaGuarantor').setValue(_GETCustomerInfo['customerId'])
 
           //  if (this._AddNewLonaForm.get('iAddLonaInput').get('1').get('LonaGuarantor').value == '' ) this._AddNewLonaForm.get('iAddLonaInput').get('1').get('LonaGuarantor').setValue(_GETCustomerInfo['customerId'])
 
@@ -497,7 +629,7 @@ export class UpdateLonaComponent implements OnInit {
 
         //  if (this._AddNewLonaForm.get('iAddLonaInput').get('0').get('LonaGuarantor').value == '' ) this._AddNewLonaForm.get('iAddLonaInput').get('0').get('LonaGuarantor').setValue(_GETCustomerInfo['customerId'])
 
-        if (this._AddNewLonaForm.get('iAddLonaInput').get('1').get('LonaGuarantor').value == '') this._AddNewLonaForm.get('iAddLonaInput').get('1').get('LonaGuarantor').setValue(_GETCustomerInfo_['customerId'])
+        if (this._AddNewLonaForm.get('iAddLonaInput').get('1').get('InputLonaGuarantor').value == '') this._AddNewLonaForm.get('iAddLonaInput').get('1').get('InputLonaGuarantor').setValue(_GETCustomerInfo_['customerId'])
         if (this._AddNewLonaForm.get('iAddLonaInput').get('1').get("InputcustomerName").value == '') this._AddNewLonaForm.get('iAddLonaInput').get('1').get('InputcustomerName').setValue(_GETCustomerInfo_['customerName'])
         if (this._AddNewLonaForm.get('iAddLonaInput').get('1').get("InputcustomerNationalid").value == '')
         this._AddNewLonaForm.get('iAddLonaInput').get('1').get('InputcustomerNationalid').setValue(_GETCustomerInfo_['customerNationalid'])
@@ -505,7 +637,7 @@ export class UpdateLonaComponent implements OnInit {
   }
   addNewItemInFormGroup(): FormGroup {
     return this.fb.group({
-      LonaGuarantor: ['', Validators.required],
+      InputLonaGuarantor: ['', Validators.required],
       InputcustomerName: ['', Validators.required],
       InputcustomerNationalid: [''],
       InputcustomerName1: ['', Validators.required],
@@ -600,13 +732,13 @@ export class UpdateLonaComponent implements OnInit {
 
     for (let index = 0; index <= 2; index++) {
       let indexstring = String(index)
-      this.GetvalueFromInputLonaGuarantor = this._AddNewLonaForm.get('iAddLonaInput').value[index]['LonaGuarantor']
+      this.GetvalueFromInputLonaGuarantor = this._AddNewLonaForm.get('iAddLonaInput').value[index]['InputLonaGuarantor']
       let _AddNewLonaForm = this.LonaEdit[index];
 
       let GetlonaDetailsId = _AddNewLonaForm.lonaDetailsId
       let GetlonaId = _AddNewLonaForm.lonaId
       this.errorList = [];
-      this._AddNewLonaService.UpdateNewLona_(this.GetvalueFromInputLonaGuarantor, GetlonaId, GetlonaDetailsId, 2).subscribe(response => {
+      this._AddNewLonaService.UpdateLona(this.GetvalueFromInputLonaGuarantor, GetlonaId, GetlonaDetailsId, 2).subscribe(response => {
         Swal.fire({
           title: 'تم !',
           text: 'الحفظ بنجاح',
@@ -615,6 +747,110 @@ export class UpdateLonaComponent implements OnInit {
         });
         //console.log(response);
         //console.log(this.UpdatecustomerForm)
+        this.router.navigate(['/pages/TrackLona'])
+
+      },
+        error => {
+
+          if (error.status == 500) {
+            // this.toastrservice.info('An error occured while processing this request. Check details or Try again.', '', {
+            //   positionClass: 'toast-top-right'
+            // });
+            Swal.fire({
+              title: 'خطأ !',
+              text: 'An error occured while processing this request. Check details or Try again',
+              icon: 'error',
+              confirmButtonText: 'موافق'
+            });
+          }
+
+          if (error.error && error.error.value) {
+            this.errorList = [];
+            for (let i = 0; i < error.error.value.length; i++) {
+              this.errorList.push(error.error.value[i]);
+            }
+            this.showModalError();
+          }
+        });
+    }
+  }
+
+  DeleteLonaMaster() {
+
+    if(this.InputcustomerName ==null){
+    
+    Swal.fire({
+      text:'يجب عرض البيانات اولا',
+      icon:'error',
+      
+    })
+   return;
+  }else{
+    for (let index = 0; index <= 2; index++) {
+       this.GetvalueFromInputLonaGuarantor = this._AddNewLonaForm.get('iAddLonaInput').value[index]['InputLonaGuarantor']
+      // let _AddNewLonaForm = this.LonaEdit[index];
+       console.log(this._LonaIdfromurl)
+      this.errorList = [];
+      
+      this._AddNewLonaService.DeleteLonaMaster(this._LonaIdfromurl).subscribe(response => {
+      this.DeleteLonaDetails()
+        Swal.fire({
+          title: 'تم !',
+          text: 'الحفظ بنجاح',
+          icon: 'success',
+          confirmButtonText: 'موافق'
+        });
+        //console.log(response);
+        //console.log(this.UpdatecustomerForm)
+        this.router.navigate(['/pages/TrackLona'])
+
+      },
+        error => {
+
+          if (error.status == 500) {
+            // this.toastrservice.info('An error occured while processing this request. Check details or Try again.', '', {
+            //   positionClass: 'toast-top-right'
+            // });
+            Swal.fire({
+              title: 'خطأ !',
+              text: 'An error occured while processing this request. Check details or Try again',
+              icon: 'error',
+              confirmButtonText: 'موافق'
+            });
+          }
+
+          if (error.error && error.error.value) {
+            this.errorList = [];
+            for (let i = 0; i < error.error.value.length; i++) {
+              this.errorList.push(error.error.value[i]);
+            }
+            this.showModalError();
+          }
+        });
+    }
+  }}
+  DeleteLonaDetails() {
+
+    
+    for (let index = 0; index <= 2; index++) {
+       this.GetvalueFromInputLonaGuarantor = this._AddNewLonaForm.get('iAddLonaInput').value[index]['InputLonaGuarantor']
+      let _AddNewLonaForm = this.LonaEdit[index];
+      let GetlonaDetailsId = _AddNewLonaForm.lonaDetailsId
+      console.log(_AddNewLonaForm.lonaDetailsId)
+      this.errorList = [];
+      
+      this._AddNewLonaService.DeleteLonaDetails(GetlonaDetailsId).subscribe(response => {
+      
+        Swal.fire({
+          title: 'تم !',
+          text: 'الحفظ بنجاح',
+          icon: 'success',
+          confirmButtonText: 'موافق'
+        });
+        //console.log(response);
+        //console.log(this.UpdatecustomerForm)
+        this.router.navigate(['/pages/TrackLona'])
+
       },
         error => {
 
@@ -672,9 +908,7 @@ export class UpdateLonaComponent implements OnInit {
 
     this.GetTotalAmount = GetAmountAfteraddinters + getAmountLona
     localStorage.setItem('localGetTotalAmount', this.GetTotalAmount)
-
-    //  console.log('GetTotalAmount',this.GetTotalAmount)
-
+ 
     this._UpdateIssuanceLona.get('amountAfterAddInterest').setValue(this.GetTotalAmount)
 
     this.GetStartDateLonaValue = this._UpdateIssuanceLona.get('StartDateLona').value
@@ -687,18 +921,18 @@ export class UpdateLonaComponent implements OnInit {
     let GetlonaId = this.LonaEdit[0].lonaId;
     //  let GetlonaId = _AddNewLonaForm.lonaId
     this.errorList = [];
-
+     //invalid code
     this._AddNewLonaService.IssuanceLonaAsync(
       // GetlonaId,1,this.GetTotalAmount,GetStartDateLonaValue,new  Date(GetEndDateLonaValue)
       GetlonaId, 1, this.GetTotalAmount, new Date(this.GetStartDateLonaValue), new Date(this.GetEndDateLonaValue)
     ).subscribe(response => {
+      this.AddPaymentOfistallments();
 
       Swal.fire({
         text: 'تم اصدار القرض بنجاح',
         icon: 'success',
         confirmButtonText: 'موافق'
       });
-      this.AddPaymentOfistallments();
       //  this.router.navigate(['/pages/TrackLona'])
 
     },
@@ -748,7 +982,7 @@ export class UpdateLonaComponent implements OnInit {
         new Date(),
         false, '1',
         this._LonaIdfromurl,
-        GetProductid, GetMonthNumber,0,0,0,0,new Date(),
+        GetProductid, GetMonthNumber,0,0,0,new Date(),0
       ).subscribe(
         (result) => {
           if (result.message == 'Added successfully') {
@@ -792,37 +1026,17 @@ export class UpdateLonaComponent implements OnInit {
   }
   //#endregion end check Err
  
-
-  Test(){
-    for (let index = 0; index < 12; index++) {
-      function addMonths(date, months) {
-      date.setMonth(date.getMonth() + months);
-    
-      return date;
-    }
-    
-     const date = new Date();
  
-    const result = addMonths(date, index);
-    console.log(result); //   
-
-  }
-}
   //#region 
   AddPaymentOfistallmentsDeatis() {
     this.GetMonthNumber = this._AddNewLonaForm.get('monthNumber').value
-   
- 
     for (let index = 0; index < this.GetMonthNumber; index++) {
-
-
       function addMonths(date, months) {
         date.setMonth(date.getMonth() + months);
-      
         return date;
       }
       
-      // ✅ Add 13 months to a date
+      // ✅ Add 12 months to a date
       const date = new Date();
       
       const result = addMonths(date, index);
@@ -894,6 +1108,36 @@ export class UpdateLonaComponent implements OnInit {
     skillsFormArray.markAsTouched();
   }
 
+  CheckInputnumberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
 
+  }
+  logValidationErrors(group: FormGroup = this._AddNewLonaForm): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+  
+      this.formErrors[key] = '';
+      // abstractControl.value !== '' (This condition ensures if there is a value in the
+      // form control and it is not valid, then display the validation error)
+      if (abstractControl && !abstractControl.valid &&
+          (abstractControl.touched || abstractControl.dirty || abstractControl.value !== '')) {
+        const messages = this.validationMessages[key];
+  
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
+          }
+        }
+      }
+  
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      }
+    });
+  }
 
 }

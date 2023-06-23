@@ -22,9 +22,7 @@ export class ListRemoveistallmentsComponent implements OnInit {
  
    this._MainService.GETAllAsync(this._URLPathModule.GetAllPaymentOfistallmentsURL).subscribe(fillObject => {
     this.PaymentOfistallmentsPagging = fillObject;
-
  
-
    } );
   }
   

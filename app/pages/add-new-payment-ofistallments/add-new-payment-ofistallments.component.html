@@ -38,10 +38,9 @@
         </td>
         <td>
           <label class="form-Lable" style="color: black; font-size: medium;">{{customerNationalid}}</label>
-          <button class="btn btn-danger"   (click)="DeleteLona()">الغاء القرض</button>
+          <!-- <button class="btn btn-danger"   (click)="DeleteLona()">تغيير لتحت التحرير</button> -->
           
-          <button class="btn btn-danger"   (click)="_DeleteLonaPaymentOfistallments()">الغاء sss</button>
-
+ 
         </td>
 
         <td><label class="form-Lable" style="color: black; font-size: medium;">{{GetInterestRateName}}</label>
@@ -58,10 +57,20 @@
  
   <label class="form-Lable" style="color: rgb(55, 82, 194); font-size: large;"> المبلغ المتبقى قبل الخصم {{showCalculateremainingamount}}</label> 
   <label class="form-Lable" style="color: rgb(233, 21, 74); font-size: large;"> نسبة الخصم % </label> 
+  <div class="form-group" [ngClass]="{'has-error' :  formErrors.DiscountPercentagecontol }">
 
   <input type="number" 
   formControlName="DiscountPercentagecontol"  
-  placeholder="number" class="form-controlona" value="10"> 
+  placeholder="number" class="form-controlona"   (blur)="logValidationErrors()"  
+  onKeyPress="if(this.value.length==11) return false;" (keypress)="CheckInputnumberOnly($event)"> 
+
+  <span class="help-block" *ngIf="formErrors.DiscountPercentagecontol">
+    {{formErrors.DiscountPercentagecontol}}
+    </span>
+  </div>
+
+ 
+   
 
   <button class="btn btn-warning" (click)="ExpeditedPayment()"> 2 عرض المبلغ  </button>
 
@@ -106,14 +115,26 @@
         <td>{{_PaymentOfistallmentsPagging.amountRemaining}}</td>
         <td>{{_PaymentOfistallmentsPagging.dueDate}}</td>
 
- <td><input type="number" formControlName="amountPaidcontrol" placeholder="المبلغ المراد دفعه"
- class="form-controlheaderinput"></td>
+ <td>
+  
+  <div class="form-group" [ngClass]="{'has-error' :  formErrors.amountPaidcontrol }">
+
+  <input type="number" formControlName="amountPaidcontrol" placeholder="المبلغ المراد دفعه"
+ class="form-controlheaderinput" (blur)="logValidationErrors()"  
+ onKeyPress="if(this.value.length==11) return false;" (keypress)="CheckInputnumberOnly($event)">
+ <span class="help-block" *ngIf="formErrors.amountPaidcontrol">
+  {{formErrors.amountPaidcontrol}}
+  </span>
+</div>
+
+
+</td>
 
         <td>{{_PaymentOfistallmentsPagging.paymentIdDetails}}</td>
         <!-- <td><input type="text" formControlName="inputpaymentIdDetails" [Value]="_PaymentOfistallmentsPagging.paymentIdDetails" /></td> -->
         <td>{{_PaymentOfistallmentsPagging.dateAddDetails}}</td>
         <td>
-          <button class="btn btn-info "  (click)="UpdateLona()">دفع</button>
+          <button class="btn btn-info "  (click)="Addnewpayment()">دفع</button>
            <!-- <button class="btn btn-primary"  [routerLink]="['/pages/AddNewPayment/', _PaymentOfcPagging.paymentIdDetails]">قرض مفتوح</button> -->
 
 

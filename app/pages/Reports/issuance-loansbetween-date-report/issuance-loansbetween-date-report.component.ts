@@ -95,7 +95,7 @@ constructor(private fb: FormBuilder,
        $('#errorModal').modal('show');
     }
     
-  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
+    src = './assets/Report/ReportIssuanceLoansbetweenDate.pdf';
 
 }
 

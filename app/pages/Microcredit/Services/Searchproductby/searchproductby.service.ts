@@ -12,7 +12,7 @@ export class SearchproductbyService {
   constructor(private httpService: HttpClient) { }
   GetData = [];
 getData(_URLPathModule) :Observable<any>{
-
+ 
       return this.GetData.length ?
 
         of(this.GetData) :

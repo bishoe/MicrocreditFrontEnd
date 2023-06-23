@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
  // import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -136,7 +136,7 @@ export class CustomersComponent implements OnInit {
    };
 
 
-   onChange(e) {
+   GetValueFromRadioBtn(e) {
     window.localStorage.removeItem('localRadiobtncanCustomerBeGuanantor')
     window.localStorage.clear()
     this.SelectedRadiobtncanCustomerBeGuanantor =e.target.value
@@ -146,11 +146,15 @@ export class CustomersComponent implements OnInit {
   }
    //#endregion end check Err
    constructor(private fb: FormBuilder,
-    private validatorService: ValidatorService,private _CustomersService:CustomersService  
+    private validatorService: ValidatorService,private _CustomersService:CustomersService ,public el: ElementRef 
    ){
+    
+    
+      this.inputElement = el.nativeElement;
+    }
  
   
-  }
+  
 
   _GETValueFromexpirationdatenationalID(event) {
 
@@ -185,34 +189,30 @@ console.log(localStorage.getItem("localStorageDateAdd"))
     this.customerForm = this.fb.group({
   
 
-    customerName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(10)]),
+    customerName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(10) ,    ]),
 
-     customerNationalid: new FormControl('', [Validators.required, ]),
+     customerNationalid: new FormControl('', [Validators.required, Validators.maxLength(14), Validators.minLength(14)]),
 
      expirationdatenationalID :     localStorage.getItem("localStorageexpirationdatenationalID")
      ,
      dateissuancenationalID : this.dateissuancenationalID,
 
-     firstPhone:new FormControl('', [Validators.required, ]),
+     firstPhone:new FormControl('', [Validators.required, Validators.maxLength(11), Validators.minLength(11) ,    ]),
      
 
-    secondPhone:  new FormControl('', [Validators.required, ]),
+    secondPhone:  new FormControl('', [Validators.required, Validators.maxLength(11), Validators.minLength(11) ,    ]),
      
 
-      businessName: new FormControl('', [Validators.required, ]),
+      businessName: new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
      
 
-    workAddress : new FormControl('', [Validators.required, ]),
+    workAddress : new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
      
 
-    customerAddress : new FormControl('', [Validators.required, ]),
-     
-
-     
-
-     notes : new FormControl('', [Validators.required, ]),
-     
-
+    customerAddress : new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
+      
+     notes : new FormControl('', [Validators.required, Validators.maxLength(250), Validators.minLength(1) ,    ]),
+      
     dateAdd : this.dateAdd,
 
 
@@ -222,9 +222,9 @@ console.log(localStorage.getItem("localStorageDateAdd"))
 canCustomerBeGuanantor:   this.canCustomerBeGuanantor,
      
 
-maxLonaForCustomer: new FormControl('', [Validators.required, ]),
+maxLonaForCustomer: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(1) ,    ]),
      
-maxNumberGuarantorLona :new FormControl('', [Validators.required, ]),
+maxNumberGuarantorLona :new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(1) ,    ]),
 
 SelectedRadiobtnValue:new FormControl('', [Validators.required, ])
   })
@@ -234,7 +234,14 @@ SelectedRadiobtnValue:new FormControl('', [Validators.required, ])
  
 
   }
+  CheckInputnumberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
 
+  }
   logValidationErrors(group: FormGroup = this.customerForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -347,6 +354,64 @@ this.customerForm.get('dateEdit').setValue(this.GETValueFromDateAdd)
     );
 }
 
+// private navigationKeys = [
+//   'Backspace',
+//   'Delete',
+//   'Tab',
+//   'Escape',
+//   'Enter',
+//   'Home',
+//   'End',
+//   'ArrowLeft',
+//   'ArrowRight',
+//   'Clear',
+//   'Copy',
+//   'Paste'
+// ];
+inputElement: HTMLElement;
+
+
+// @HostListener('keydown', ['$event'])
+// onKeyDown(e: KeyboardEvent) {
+//   if (
+//     this.navigationKeys.indexOf(e.key) > -1 || // Allow: navigation keys: backspace, delete, arrows etc.
+//     (e.key === 'a' && e.ctrlKey === true) || // Allow: Ctrl+A
+//     (e.key === 'c' && e.ctrlKey === true) || // Allow: Ctrl+C
+//     (e.key === 'v' && e.ctrlKey === true) || // Allow: Ctrl+V
+//     (e.key === 'x' && e.ctrlKey === true) || // Allow: Ctrl+X
+//     (e.key === 'a' && e.metaKey === true) || // Allow: Cmd+A (Mac)
+//     (e.key === 'c' && e.metaKey === true) || // Allow: Cmd+C (Mac)
+//     (e.key === 'v' && e.metaKey === true) || // Allow: Cmd+V (Mac)
+//     (e.key === 'x' && e.metaKey === true) // Allow: Cmd+X (Mac)
+//   ) {
+//     // let it happen, don't do anything
+//     return;
+//   }
+//   // Ensure that it is a number and stop the keypress
+//   if (
+//     (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) &&
+//     (e.keyCode < 96 || e.keyCode > 105)
+//   ) {
+//     e.preventDefault();
+//   }
+// }
+
+// @HostListener('paste', ['$event'])
+// onPaste(event: ClipboardEvent) {
+//   event.preventDefault();
+//   const pastedInput: string = event.clipboardData
+//     .getData('text/plain')
+//     .replace(/\D/g, ''); // get a digit-only string
+//   document.execCommand('insertText', false, pastedInput);
+// }
+
+// @HostListener('drop', ['$event'])
+// onDrop(event: DragEvent) {
+//   event.preventDefault();
+//   const textData = event.dataTransfer.getData('text').replace(/\D/g, '');
+//   this.inputElement.focus();
+//   document.execCommand('insertText', false, textData);
+// }
 
 
 showModalError() {

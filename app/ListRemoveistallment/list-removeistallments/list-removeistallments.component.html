@@ -22,14 +22,20 @@
             <tr *ngFor="let _PaymentOfistallmentsPagging of PaymentOfistallmentsPagging | orderBy: key: reverse | paginate :{itemsPerPage:5,currentPage:p};">
   
                
-                 <td>{{_PaymentOfistallmentsPagging.lonaId}}</td>       
-                <td>{{_PaymentOfistallmentsPagging.customerName}}</td>  
-                <td>{{_PaymentOfistallmentsPagging.dateAdd}}</td>     
+              
+            <ng-template [ngIf]="_PaymentOfistallmentsPagging.statusLona==0"   >
+              <td >{{_PaymentOfistallmentsPagging.lonaId}}</td>       
+  <td>{{_PaymentOfistallmentsPagging.customerName}}</td>  
+  <td>{{_PaymentOfistallmentsPagging.dateAdd}}</td>     
+              <button class="btn btn-primary"  [routerLink]="['/pages/Removeistallments/', _PaymentOfistallmentsPagging.paymentId]">قرض مفتوح</button>
+            </ng-template>
+            <ng-template [ngIf]="_PaymentOfistallmentsPagging.statusLona==1">
+              <td >{{_PaymentOfistallmentsPagging.lonaId}}</td>       
+              <td>{{_PaymentOfistallmentsPagging.customerName}}</td>  
+              <td>{{_PaymentOfistallmentsPagging.dateAdd}}</td>  
+              <button class="btn btn-success"  [routerLink]="['/pages/Removeistallments/', _PaymentOfistallmentsPagging.paymentId]">قرض منتهى</button>
 
-                <td *ngIf="_PaymentOfistallmentsPagging.statusLona ==1">
-               <button class="btn btn-primary"  [routerLink]="['/pages/Removeistallments/', _PaymentOfistallmentsPagging.paymentId]">قرض مفتوح</button>
-                </td>     
-
+            </ng-template>
                   
              </tr>
         </tbody>

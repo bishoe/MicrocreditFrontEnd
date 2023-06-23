@@ -19,39 +19,32 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let _PaymentOfistallmentsPagging of PaymentOfistallmentsPagging | orderBy: key: reverse | paginate :{itemsPerPage:5,currentPage:p};" >
+          <tr *ngFor="let _PaymentOfistallmentsPagging of PaymentOfistallmentsPagging | orderBy: key: reverse | paginate :{itemsPerPage:5,currentPage:p};" >
  
 
-<ng-container *ngIf="_PaymentOfistallmentsPagging.statusLona ==0; then IssuanceLona; else completeLona;">
-
-</ng-container>
-
-<ng-template #IssuanceLona>
-fgffg
-  <td >{{_PaymentOfistallmentsPagging.lonaId}}</td>       
+            <ng-template [ngIf]="_PaymentOfistallmentsPagging.statusLona==0">
+              <td >{{_PaymentOfistallmentsPagging.lonaId}}</td>       
   <td>{{_PaymentOfistallmentsPagging.customerName}}</td>  
   <td>{{_PaymentOfistallmentsPagging.dateAdd}}</td>     
+              <button class="btn btn-primary"  [routerLink]="['/pages/AddNewPayment/', _PaymentOfistallmentsPagging.paymentId]">قرض مفتوح</button>
+            </ng-template>
+            <ng-template [ngIf]="_PaymentOfistallmentsPagging.statusLona==1">
+              <td >{{_PaymentOfistallmentsPagging.lonaId}}</td>       
+              <td>{{_PaymentOfistallmentsPagging.customerName}}</td>  
+              <td>{{_PaymentOfistallmentsPagging.dateAdd}}</td>  
+              <button class="btn btn-success"  [routerLink]="['/pages/AddNewPayment/', _PaymentOfistallmentsPagging.paymentId]">قرض منتهى</button>
+
+            </ng-template>
+             
 
 
- <button class="btn btn-primary"  [routerLink]="['/pages/AddNewPayment/', _PaymentOfistallmentsPagging.paymentId]">قرض مفتوح</button>
+          
+           </tr> 
+
+<!-- <ng-container *ngIf="_PaymentOfistallmentsPagging.statusLona ==0; then IssuanceLona; else completeLona;"> -->
  
-  
-</ng-template>
-               
-<ng-template #completeLona>
-
-  <td >{{_PaymentOfistallmentsPagging.lonaId}}</td>       
-  <td>{{_PaymentOfistallmentsPagging.customerName}}</td>  
-  <td>{{_PaymentOfistallmentsPagging.dateAdd}}</td>     
-
-
- <button class="btn btn-success"  [routerLink]="['/pages/AddNewPayment/', _PaymentOfistallmentsPagging.paymentId]">قرض مدفوع</button>
  
-
-</ng-template>
-
-            
-             </tr>
+       
         </tbody>
         
         <pagination-controls (pageChange)="p = $event"></pagination-controls>

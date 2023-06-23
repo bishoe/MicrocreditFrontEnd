@@ -13,34 +13,7 @@
                    <script src="https://codepen.io/shshaw/pen/QmZYMG.js"></script>
   <div class="row" style="direction: rtl;" [formGroup]="_AddNewLonaForm">
 
-                  <!-- <label class="search">
-
-                    <div class="one">
-                      <div class="two">
-                        <div class="three">
- <input type="search" class="four" placeholder="ادخل كود العميل" formControlName="TextSearchCustomercode"  (keydown.enter)="SearchCustomerBycode();"/>
-                        </div>
-                        <div class="stick"></div>
-                      </div>
-                    </div>
-                  
-                  </label>
-                  <script>               
-
-                      
-                  document.querySelector('.stick').addEventListener('click',()=>{
-                    document.querySelector('.four').value = '';
-                    });
-                  </script> -->
-                  <!--  area Combobox  DrodDown Select  Date time -->
-                   
-                    <!-- <div class="col-sm-2">
-                      <label class="form-Lable"> البحث:</label>
-                      <input type="number"  formControlName="TextSearchCustomercode"
-                          placeholder="ادخل كود العميل" class="form-controlOne" style="width:184px; padding: 7px 27px 14px; margin-right: -10px;"
-                          (keydown.enter)="SearchCustomerBycode();">
-                          <button (click)="SearchCustomerBycode()">SearchCustomerBycode()</button>
-                  </div> -->
+ 
                     
                    <div class="col-sm-2" style="direction: rtl;">
                     <label class="form-Lable"> البيانات الاساسيه:</label>
@@ -58,20 +31,12 @@
                           <td><label  class="form-Lable" style="color: red;">{{GetcustomerNamefromurl}}</label></td>
 
                           <td><label  class="form-Lable" style="color: green; font-size:large; width: 100px; text-align: center;">   {{_customerIdfromurl}}</label></td>
-                          <td><label  class="form-Lable" style="color: black; font-size: medium;">{{GetGetcustomerNationalidfromurl}}</label></td>
+                          <td><label  class="form-Lable" style="color: black; font-size: medium;">{{GetcustomerNationalidfromurl}}</label></td>
 
                         </tr>
                       </tbody>
                     </table>
-            <!-- <table class="table table-bordered">
-              
-              
-              : اسم العميل
-{{GetCustomername}} 
-{{GetCustomername}} 
-{{GetCustomername}} 
-
-            </table> -->
+     
             <table class="table table-bordered" >
               <thead >
                 <tr >
@@ -92,7 +57,7 @@
                 <tr>
                    <td>  
                      <mat-form-field>
-                     <input type="text" placeholder="" [formControl]="prodouctsIDControl" class="Tesr"  matInput
+                     <input type="text" placeholder="" [formControl]="prodouctsIDControl" class="inputAutocomplete"  matInput
                        [matAutocomplete]="autoprodoucts">
                     <!-- </label> -->
                     <mat-autocomplete #autoprodoucts="matAutocomplete" [displayWith]="GetProductIDFromSearchText">
@@ -102,18 +67,20 @@
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field></td>
-                  <td>  
-                      <mat-form-field >
-<input type="text" placeholder=" " [formControl]="customerIDControl" matInput
-[matAutocomplete]="autoCustomer" >
-                    <mat-autocomplete #autoCustomer="matAutocomplete" [displayWith]="GetInputLonaGuarantorFromSearchText">
-                        <mat-option  *ngFor="let option of filteredOptionsCustomer | async" [value]="option"
+                <td>
+
+                  <mat-form-field>
+ <input type="text" placeholder="" [formControl]="customerIDControl" matInput
+                      [matAutocomplete]="autoCustomer" class="inputAutocomplete">
+                    <mat-autocomplete #autoCustomer="matAutocomplete"
+                      [displayWith]="GetInputLonaGuarantorFromSearchText" >
+                      <mat-option *ngFor="let option of filteredOptionsCustomer | async" [value]="option"
                         (focusout)="GetCustomerIDandSetIDINTEXT();">
-                            {{option.customerName}}
-                        </mat-option>
+                        {{option.customerName}}
+                      </mat-option>
                     </mat-autocomplete>
-                </mat-form-field>
-              </td>
+                  </mat-form-field>
+                </td>
 
               <td>
  <label>الفائده
@@ -132,10 +99,17 @@
                 
                 </label></td>
             <td>
+              <div class="form-group" [ngClass]="{'has-error' :  formErrors.InputAmountLona }">
+
               <label class="form-Lable">مبلغ القرض:
-                <input type="number"   formControlName="InputAmountLona" placeholder="مبلغ القرض"
+                <input type="number"   formControlName="InputAmountLona" placeholder="مبلغ القرض" (blur)="logValidationErrors()"  
+                onKeyPress="if(this.value.length==6) return false;" (keypress)="CheckInputnumberOnly($event)"
                  class="form-controlheaderinput">
  </label>
+ <span class="help-block" *ngIf="formErrors.InputAmountLona">
+  {{formErrors.InputAmountLona}}
+  </span>
+</div>
 
             </td>
 
@@ -189,21 +163,20 @@
  
   <input type="number" id="{{'TextNameCounter'+i}}"
 formControlName="TextNameCounter" [value]="i"
-placeholder="number" class="form-controlona"> 
+placeholder="number" class="form-controlona"  > 
 
 <div data-title="#" [formGroupName]="i" >
 <input type="number" id="{{'InputLonaGuarantor'+i}}"class="form-controlona"
-formControlName="InputLonaGuarantor" placeholder="الكود"> 
+formControlName="InputLonaGuarantor" placeholder="الكود"  > 
 </div>
  <div data-title="#" [formGroupName]="i">
 
     <input type="text" id="{{'InputcustomerName'+i}}"
-    class="form-controlona"      formControlName="InputcustomerName" placeholder="الاسم
-         ">
-                                  </div>
+    class="form-controlona" formControlName="InputcustomerName" placeholder="الاسم"  ></div>
+
  <div   data-title="#" [formGroupName]="i">
- <input type="number"class="form-controlona" id="{{'InputcustomerNationalid'+i}}" formControlName="InputcustomerNationalid"   placeholder="الرقم القومى"maxlength="7"pattern="/^-?\d+\.?\d*$/" 
- onKeyPress="if(this.value.length==7) return false;">
+ <input type="number"class="form-controlona" id="{{'InputcustomerNationalid'+i}}" formControlName="InputcustomerNationalid"   placeholder="الرقم القومى"maxlength="14"pattern="/^-?\d+\.?\d*$/" 
+ onKeyPress="if(this.value.length==14) return false;" >
                                   </div>
                                </div>
                           </div>

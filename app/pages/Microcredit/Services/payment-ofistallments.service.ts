@@ -31,8 +31,8 @@ _IPaymentOfistallmentsDetails :IPaymentOfistallmentsDetails;
    DiscountPercentage?:number, 
    AmountBeforeDiscount? :number,
   AmountAfterDiscount ? :number,
-   StatusLona? :number ,
   ExpeditedPaymentDate ? :Date,
+  StatusLona?:number
   //  NoIstalments:number
   ){
     this._IPaymentOfistallments={
