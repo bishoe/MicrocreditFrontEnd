@@ -101,7 +101,7 @@ GETIDFROMURL(){
   //GET ID FROM URL Pagging
   this._InterestRateId= this._activatedRoute.snapshot.params['interestRateId'];
    this. GetInterestRateIdFromUrl = this._InterestRateId
-  console.log(this.GetInterestRateIdFromUrl)
+  // console.log(this.GetInterestRateIdFromUrl)
 }
 
 SETdataTOFORMCONTROL(){

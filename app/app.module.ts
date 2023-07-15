@@ -156,6 +156,7 @@ import { UpdateCustomersComponent } from './pages/update-customers/update-custom
   
   schemas: [ NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA
   ],
+  providers:[{provide:LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent],
 })
 export class AppModule {

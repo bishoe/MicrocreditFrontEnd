@@ -205,7 +205,7 @@ formErrors = {
 
       localStorage.setItem("localstorgecustomerId", this.GetCustomerIDFromSearch);
       localStorage.setItem("localstorgecustomername", this.GetCustomerNameFromSearch)
-      console.log(localStorage.getItem("localstorgecustomername"))
+      // console.log(localStorage.getItem("localstorgecustomername"))
 
       localStorage.setItem("localstorgecustomerNationalid", this.GetcustomerNationalidFromSearch)
 
@@ -262,7 +262,7 @@ formErrors = {
       this._CustomersService.SearchLonaGuarantorStatusIdAsync(this._GetMAxLonaGuarantor).subscribe(
         (resultLonaGuarantor) => {
       
-          console.log(resultLonaGuarantor);
+          // console.log(resultLonaGuarantor);
           localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','false')
       
       if(resultLonaGuarantor == ''){localStorage.setItem('localCheckstatus_BAddDatainaddNewItemInFormGroup','true')
@@ -421,21 +421,21 @@ filterBYCustomerName(val: string): Observable<any> {
 
     this.GETValueFromStartDateLona = event
 
-    console.log(this.GETValueFromStartDateLona);
+    // console.log(this.GETValueFromStartDateLona);
   }
 
   _GETValueFromEndDateLona(event) {
 
     this.GETValueFromEndDateLona = event
 
-    console.log(this.GETValueFromEndDateLona);
+    // console.log(this.GETValueFromEndDateLona);
   }
 
   _GETValueFromDateAdd(event) {
 
     this.GETValueFromDateAdd = event
 
-    console.log(this.GETValueFromDateAdd);
+    // console.log(this.GETValueFromDateAdd);
   }
   //GETID FROM URL
   GETIDFROMURL() {

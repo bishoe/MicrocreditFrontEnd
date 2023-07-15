@@ -83,7 +83,7 @@ this.EditProductForm = data;
  });}
 UpdateProducts() {
   let UpdateProductForm = this.UpdateProductForm.value;
-  console.log(UpdateProductForm)
+  // console.log(UpdateProductForm)
   this.errorList = [];
   //console.log('>>>>',this._activatedRoute.snapshot.params['customerId'])
   

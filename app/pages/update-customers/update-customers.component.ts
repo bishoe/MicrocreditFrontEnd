@@ -187,13 +187,13 @@ this.UpdatecustomerForm.patchValue
 GETValueFromdateissuancenationalID(event) {
 
   this.GetValueFromdateissuancenationalID = event
-  console.log(this.GetValueFromdateissuancenationalID);
+  // console.log(this.GetValueFromdateissuancenationalID);
 }
 GETValueFromGETValueFromexpirationdatenationalID(event) {
 
   this.GETValueFromexpirationdatenationalID = event
 
-  console.log(this.GETValueFromexpirationdatenationalID);
+  // console.log(this.GETValueFromexpirationdatenationalID);
 }
 GETValueFromdateAdd(event) {
   this._GETValueFromdateAdd = event
@@ -207,7 +207,7 @@ UpdateCustomers() {
   this.UpdatecustomerForm.get('dateEdit').setValue(new Date())
   
 let updatecustomer = this.UpdatecustomerForm.value;
-console.log(updatecustomer)
+// console.log(updatecustomer)
 this.errorList = [];
 //console.log('>>>>',this._activatedRoute.snapshot.params['customerId'])
 

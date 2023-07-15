@@ -23,7 +23,7 @@ export class ListPaymentOfistallmentsComponent implements OnInit {
  
    this._MainService.GETAllAsync(this._URLPathModule.GetAllPaymentOfistallmentsURL).subscribe(fillObject => {
     this.PaymentOfistallmentsPagging = fillObject;
-    console.log(this.PaymentOfistallmentsPagging)
+    // console.log(this.PaymentOfistallmentsPagging)
 
    } );
   }

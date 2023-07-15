@@ -52,7 +52,7 @@ window.stop()
 
 this._CustomersService.SearchCustomerStatusIdAsync(this._TextSearchCustomercode).subscribe(
   (GetCustomerInfo) => {
-    console.log(GetCustomerInfo)
+ //   console.log(GetCustomerInfo)
 
     if(GetCustomerInfo ==''){
       this.router.navigate(['/pages/addnewlona', this._AddNewLonaForm.get('TextSearchCustomercode').value])

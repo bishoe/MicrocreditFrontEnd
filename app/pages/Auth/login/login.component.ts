@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() {
-    console.log("on submit")
+    // console.log("on submit")
     this.blockUI.start();
     let email = this.loginForm.controls["email"].value;
     let password = this.loginForm.controls["password"].value;
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       if (data.responseCode == 1) {
         localStorage.setItem(Constants.USER_KEY, JSON.stringify(data.dateSet));
         let user = data.dateSet as User;
-        console.log(user.roles)
+        // console.log(user.roles)
         if(user.roles.indexOf('Admin')> -1){
           this.router.navigate(["/all-user-management"]);
         }else{
@@ -40,10 +40,10 @@ export class LoginComponent implements OnInit {
 
       }
       this.blockUI.stop();
-      console.log("response", data);
+      // console.log("response", data);
     }, error => {
       this.blockUI.stop();
-      console.log("error", error)
+      // console.log("error", error)
     })
   }
 

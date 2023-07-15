@@ -250,7 +250,7 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
           userID: this.GetDetialsLonawithID[index].userID,
           LonaId: this.GetDetialsLonawithID[0].lonaId,
         });
-      console.log(this._DetailsLona.value)
+      // console.log(this._DetailsLona.value)
 
 
     }
@@ -265,7 +265,7 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
       this._URLPathModule.GetPaymentOfistallmentsByIdUrl).subscribe(
         PaymentOfistallments => {
           this.PaymentOfistallmentsPagging = PaymentOfistallments
-          console.log(this.PaymentOfistallmentsPagging)
+          // console.log(this.PaymentOfistallmentsPagging)
 
           
           this.GetFirstpaymentIdDetails = this.PaymentOfistallmentsPagging[0]['paymentIdDetails']
@@ -341,21 +341,21 @@ localStorage.setItem("LocalStoragelonaId",data[0].lonaId)
    SetAmountRemaining = GetistalmentsAmount - GetamountamountPaid ; SetStatusIstalments = 2;
     
     CalcTotalAmount = GetamountPaidcontrol + GetamountamountPaid;
-console.log(
-  this.GetFirstpaymentIdDetails,
-  GetpaymentId,
-  GetistalmentsAmount,
-  CalcTotalAmount,
-  SetAmountRemaining,
-  GetnoIstalments,
-  GetmonthNumber,
-new Date (),
-  SetStatusIstalments
+// console.log(
+//   this.GetFirstpaymentIdDetails,
+//   GetpaymentId,
+//   GetistalmentsAmount,
+//   CalcTotalAmount,
+//   SetAmountRemaining,
+//   GetnoIstalments,
+//   GetmonthNumber,
+// new Date (),
+//   SetStatusIstalments
 
 
 
 
-)
+// )
 
 if (CalcTotalAmount < GetistalmentsAmount) {
      let CalcRem = GetistalmentsAmount - GetamountamountPaid 
@@ -522,7 +522,7 @@ if (CalcTotalAmount < GetistalmentsAmount) {
     PaymentOfistallments => {
       this.PaymentOfistallmentsPagging = PaymentOfistallments
        this.GetFirstpaymentIdDetails = this.PaymentOfistallmentsPagging[index]['paymentIdDetails']
-       console.log()
+      //  console.log()
        this._PaymentOfistallmentsService.DeleteLona(this.GetFirstpaymentIdDetails,
          GetpaymentId,0,0,0,0,GetmonthNumber,new Date(),SetStatusIstalments
         ).subscribe(response => {
@@ -569,7 +569,7 @@ if (CalcTotalAmount < GetistalmentsAmount) {
 
   _DeleteLonaPaymentOfistallments(){
     let GetpaymentId = this.PaymentOfistallmentsPagging[0]['paymentId']
-console.log(GetpaymentId)
+// console.log(GetpaymentId)
      this._MainService.UpdateWithIdAsync(  this.PaymentOfistallmentsPagging[0]['lonaId']
      ,this._URLPathModule.ChangeStatusMasterLona).subscribe(response => {
 
@@ -618,10 +618,10 @@ console.log(GetpaymentId)
 
     this.GetDiscountPercentagecontol = this._DetailsLona.get('DiscountPercentagecontol').value
   
-    console.log(this.ValueCalculateremainingamount)
+    // console.log(this.ValueCalculateremainingamount)
     var calcAmountDiscountPercentage =  this.ValueCalculateremainingamount * this.GetDiscountPercentagecontol / 100
   
-  console.log(calcAmountDiscountPercentage)
+  // console.log(calcAmountDiscountPercentage)
   
     this.TotalAmountRequier =    this.ValueCalculateremainingamount - calcAmountDiscountPercentage
      

@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ResponseCode } from '../Enum/ResponseCode';
 import { ResponseModel } from '../Model/responseModel';
-import { Role } from '../../../../login/role';
 import { UserService } from '../Services/user.service';
+import { Role } from '../../login/role';
 
 @Component({
   selector: 'app-register',
@@ -45,9 +45,9 @@ export class RegisterComponent implements OnInit {
        }else{
          this.toastr.error(data.dateSet[0]);
        }
-     console.log("response",data);
+    //  console.log("response",data);
     },error=>{
-      console.log("error",error)
+      // console.log("error",error)
       this.toastr.error("Something went wrong please try again later");
     })
   }

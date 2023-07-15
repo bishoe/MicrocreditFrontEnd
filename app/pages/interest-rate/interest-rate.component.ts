@@ -104,7 +104,7 @@ this.InterestRateForm.valueChanges.subscribe((data) => {
 //Add new InterestRate
 ADDInterestRate(){
   let InterestRateDetails = this.InterestRateForm.value;
-  console.log(InterestRateDetails)
+  // console.log(InterestRateDetails)
   this.errorList = [];
   this._InterestRateService.CreateInterestRateAsync(
     InterestRateDetails.InterestRateName,

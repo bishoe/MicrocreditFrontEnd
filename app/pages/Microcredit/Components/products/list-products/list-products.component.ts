@@ -1,9 +1,9 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
  import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from 'src/app/InternalShop/Services/Products/products.service';
-import { URLPathModule } from 'src/app/InternalShop/Classes/urlpath/urlpath/urlpath.module';
-import { Subject } from 'rxjs';
+
+ import { Subject } from 'rxjs';
+import { ProductsService } from '../../../Services/Products/products.service';
  
 @Component({
   selector: 'app-list-products',
@@ -25,7 +25,7 @@ export class ListProductsComponent implements OnInit {
 
    this.productsSVCService.GetProductsAsync().subscribe(data => {
     this.ProductesPagging = data;
-  console.log(this.ProductesPagging);
+  // console.log(this.ProductesPagging);
 // this.dtTrigger.next();
 //EnD Pagging
    } );

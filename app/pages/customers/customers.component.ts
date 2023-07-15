@@ -181,7 +181,7 @@ localStorage.setItem("localStoragedateissuancenationalID",event)
     localStorage.removeItem("localStorageDateAdd")
 
     localStorage.setItem("localStorageDateAdd",event)
-console.log(localStorage.getItem("localStorageDateAdd"))
+// console.log(localStorage.getItem("localStorageDateAdd"))
 
   }  ngOnInit(): void {
 
@@ -288,8 +288,7 @@ this.customerForm.get('dateEdit').setValue(this.GETValueFromDateAdd)
  
 
   let CustomerDetails = this.customerForm.value;
-  console.log(CustomerDetails)
-  this.errorList = [];
+   this.errorList = [];
 
 
   this._CustomersService.CreateCustomersAsync(
@@ -297,8 +296,7 @@ this.customerForm.get('dateEdit').setValue(this.GETValueFromDateAdd)
  
     .subscribe(
     (result) => {
-  console.log(    result)
-      if(result.message != 'Added successfully'){
+       if(result.message != 'Added successfully'){
         Swal.fire({
           title: 'تحذير !',
           text: result.message,

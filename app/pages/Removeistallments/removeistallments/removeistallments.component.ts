@@ -181,7 +181,7 @@ export class RemoveistallmentsComponent implements OnInit {
           userID: this.GetDetialsLonawithID[index].userID,
           LonaId: this.GetDetialsLonawithID[0].lonaId,
         });
-      console.log(this._DetailsLona.value)
+      // console.log(this._DetailsLona.value)
     }
   }
   GetinfoPayment() {
@@ -194,7 +194,7 @@ export class RemoveistallmentsComponent implements OnInit {
 
           this.PaymentOfistallmentsPagging = PaymentOfistallments
 
-            console.log(PaymentOfistallments)
+            // console.log(PaymentOfistallments)
 
           this.GetFirstpaymentIdDetails = this.PaymentOfistallmentsPagging[0]['paymentIdDetails']
           for (let index = 0; index < this.PaymentOfistallmentsPagging.length; index++) {

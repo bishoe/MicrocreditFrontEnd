@@ -60,7 +60,7 @@ constructor(private fb: FormBuilder,
        $('#errorModal').modal('show');
     }
     
-  src = './assets/Report/ReportAllIssuanceLoans.pdf';
+  src = 'http://localhost:8010/assets/Report/ReportAllIssuanceLoans.pdf';
  
 }
 

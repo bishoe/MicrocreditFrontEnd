@@ -77,7 +77,7 @@ constructor(private fb: FormBuilder,
     }
     
   // src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
-  src='./assets/Report/IssuanceLoans.pdf'
+  src='http://localhost:8010/assets/Report/IssuanceLoans.pdf'
 }
 
 

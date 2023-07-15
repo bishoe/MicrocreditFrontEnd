@@ -44,7 +44,7 @@ constructor(private fb: FormBuilder,
 
     this.DateFrom = event
 
-    console.log(this.DateFrom);
+    // console.log(this.DateFrom);
   }
 
 
@@ -53,7 +53,7 @@ constructor(private fb: FormBuilder,
 
     this.DateTo = event
 
-    console.log(this.DateTo);
+    // console.log(this.DateTo);
   }
 
   GETDataSYNC ( ){
@@ -95,7 +95,7 @@ constructor(private fb: FormBuilder,
        $('#errorModal').modal('show');
     }
     
-    src = './assets/Report/ReportIssuanceLoansbetweenDate.pdf';
+    src = 'http://localhost:8010/assets/Report/ReportIssuanceLoansbetweenDate.pdf';
 
 }
 

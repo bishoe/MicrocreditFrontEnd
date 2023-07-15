@@ -36,10 +36,10 @@ localStorage.removeItem('localStorageroles')
 
         let user = data.dateSet as User;
 
-        console.log(user.roles)
+        // console.log(user.roles)
 
         localStorage.setItem("localStorageroles",user.roles[0])
-        console.log( localStorage.getItem("localStorageroles"))
+        // console.log( localStorage.getItem("localStorageroles"))
         
         if(user.roles.indexOf('Admin')> -1){
 
@@ -51,10 +51,10 @@ localStorage.removeItem('localStorageroles')
 
       }
       this.blockUI.stop();
-      console.log("response", data);
+      // console.log("response", data);
     }, error => {
       this.blockUI.stop();
-      console.log("error", error)
+      // console.log("error", error)
     })
   }
 

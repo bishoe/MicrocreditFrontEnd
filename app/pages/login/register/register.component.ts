@@ -45,9 +45,9 @@ export class RegisterComponent implements OnInit {
        }else{
          this.toastr.error(data.dateSet[0]);
        }
-     console.log("response",data);
+    //  console.log("response",data);
     },error=>{
-      console.log("error",error)
+      // console.log("error",error)
       this.toastr.error("Something went wrong please try again later");
     })
   }

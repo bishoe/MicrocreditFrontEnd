@@ -653,21 +653,21 @@ GetcustomerNationalidfromurl;
 
     this.GETValueFromStartDateLona = event
 
-    console.log(this.GETValueFromStartDateLona);
+    // console.log(this.GETValueFromStartDateLona);
   }
 
   _GETValueFromEndDateLona(event) {
 
     this.GETValueFromEndDateLona = event
 
-    console.log(this.GETValueFromEndDateLona);
+    // console.log(this.GETValueFromEndDateLona);
   }
 
   _GETValueFromDateAdd(event) {
 
     this.GETValueFromDateAdd = event
 
-    console.log(this.GETValueFromDateAdd);
+    // console.log(this.GETValueFromDateAdd);
   }
 
   //Get CUstomer Only
@@ -789,7 +789,7 @@ GetcustomerNationalidfromurl;
     for (let index = 0; index <= 2; index++) {
        this.GetvalueFromInputLonaGuarantor = this._AddNewLonaForm.get('iAddLonaInput').value[index]['InputLonaGuarantor']
       // let _AddNewLonaForm = this.LonaEdit[index];
-       console.log(this._LonaIdfromurl)
+      //  console.log(this._LonaIdfromurl)
       this.errorList = [];
       
       this._AddNewLonaService.DeleteLonaMaster(this._LonaIdfromurl).subscribe(response => {
@@ -1040,7 +1040,7 @@ GetcustomerNationalidfromurl;
       const date = new Date();
       
       const result = addMonths(date, index);
-      console.log(result); // 
+      // console.log(result); // 
 
       var GetvaluelocalGetTotalAmount = Number(localStorage.getItem('localGetTotalAmount'))
        

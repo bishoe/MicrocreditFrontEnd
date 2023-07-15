@@ -127,7 +127,7 @@ _IPaymentOfistallmentsDetails :IPaymentOfistallmentsDetails;
         
         'Content-Type': 'application/json' ,'No-Auth': 'True'
     }) }).pipe(map(result =>{
-      console.log(result)
+      // console.log(result)
       return result;
     }));
   }
@@ -159,7 +159,7 @@ _IPaymentOfistallmentsDetails :IPaymentOfistallmentsDetails;
         
         'Content-Type': 'application/json' ,'No-Auth': 'True'
     }) }).pipe(map(result =>{
-      console.log(result)
+      // console.log(result)
       return result;
     }));
   }
@@ -184,7 +184,7 @@ _IPaymentOfistallmentsDetails :IPaymentOfistallmentsDetails;
         
         'Content-Type': 'application/json' ,'No-Auth': 'True'
     }) }).pipe(map(result =>{
-      console.log(result)
+      // console.log(result)
       return result;
     }));
   }
@@ -221,7 +221,7 @@ _IPaymentOfistallmentsDetails :IPaymentOfistallmentsDetails;
         
         'Content-Type': 'application/json' ,'No-Auth': 'True'
     }) }).pipe(map(result =>{
-      console.log(result)
+      // console.log(result)
       return result;
     }));
   }
